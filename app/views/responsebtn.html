@@ -1,0 +1,3 @@
+<a ng-href="" class="btn btn-default noiseBox text-center"
+   ng-class="{ 'btn-info': vm.isPlaying(), 'btn-success': vm.isCorrect(),
+             'btn-danger': vm.isWrong() }" ng-click="vm.setResponse()">{{ vm.text }}</a>

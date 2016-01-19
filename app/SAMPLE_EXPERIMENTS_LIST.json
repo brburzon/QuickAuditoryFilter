@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Signal to Noise",
+        "signal":
+        [
+            {"name": "signal_snr7.5.wav",   "url": "assets/sample_audio_files/signal_snr7.5.wav"},
+            {"name": "signal_snr-7.5.wav",  "url": "assets/sample_audio_files/signal_snr-7.5.wav"},
+            {"name": "signal_snr0.wav",     "url": "assets/sample_audio_files/signal_snr0.wav"},
+            {"name": "signal_snr10.wav",    "url": "assets/sample_audio_files/signal_snr10.wav"}
+        ],
+        "noSignal":
+        [
+            {"name": "nosignal_1.wav",      "url": "assets/sample_audio_files/nosignal_1.wav"},
+            {"name": "nosignal_1.wav",      "url": "assets/sample_audio_files/nosignal_1.wav"},
+            {"name": "nosignal_1.wav",      "url": "assets/sample_audio_files/nosignal_1.wav"}
+        ]
+    },
+    {
+        "name": "Gap Detection",
+        "signal":
+        [
+            {"name": "signal_snr-10.wav",   "url": "assets/sample_audio_files/signal_snr-10.wav"}
+        ],
+        "noSignal":
+        [
+            {"name": "nosignal_5.wav",      "url": "assets/sample_audio_files/nosignal_5.wav"},
+            {"name": "nosignal_7.wav",      "url": "assets/sample_audio_files/nosignal_7.wav"}
+        ]
+    }
+]

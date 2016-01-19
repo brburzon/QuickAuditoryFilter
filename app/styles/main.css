@@ -1,0 +1,242 @@
+/**
+ * This file is part of The Method of Constant Stimuli for Hearing 
+ * Experiments (online).
+ *
+ *   The Method of Constant Stimuli for Hearing Experiments (online) 
+ *   is free software: you can redistribute it and/or modify it under 
+ *   the terms of the GNU General Public License as published by the 
+ *   Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   The Method of Constant Stimuli for Hearing Experiments (online) 
+ *   is distributed in the hope that it will be useful, but WITHOUT 
+ *   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ *   or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public 
+ *   License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with The Method of Constant Stimuli for Hearing Experiments 
+ *   (online).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@charset "UTF-8";
+
+ /* latin */
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v7/Q_Z9mv4hySLTMoMjnk_rCXYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body {
+  background: #EEE;
+  padding: 0;
+}
+
+.navbar a:link {
+  color: #FFF;
+  font-size: 1.8em;
+}
+
+.navbar a:visited {
+  color: #FFF;
+}
+
+.navbar a:active {
+  color: #FFF;
+}
+
+.navbar a:hover {
+  color: #FFF;
+}
+
+.fancy-font {
+  font-size: 1.2em;
+  font-family: 'Pacifico', cursive;
+}
+
+
+.navbar-header {
+  float: left;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.navbar-brand {
+  height: auto !important;
+  overflow: visible !important;
+  line-height: 1.2em;
+  float: none;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.wrapper {
+  margin-top: 4em;
+  min-height: auto;
+}
+
+.panel {
+    padding: 15px;
+}
+
+.list-item {
+  width: 75%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.remove {
+  width: 20%;
+  float: right;
+  display: block;
+  margin-top: 4px;
+}
+
+.boxGrid {
+  padding: 0;
+}
+
+.noiseBox {
+  line-height: 2em;
+  font-size: 8vw;
+  border-radius: 2vw;
+  color: #CCC;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
+  width: 96%;
+  height: auto;
+
+  width: 2em;
+  height: 2em;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+#instruction {
+  margin-top: .5em;
+}
+
+#note {
+  font-size: .8em;
+}
+
+.footer {
+  color: white;
+  text-align: center;
+  font-size: .75em;
+  width: 100%;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+table {
+    margin: 0;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+table th {
+    padding: 1em 0 !important;
+    text-align: center;
+    border: 1px #CCC solid;
+}
+
+table tr td {
+    padding: .5em 0 !important;
+    text-align: center;
+    margin: auto;
+}
+
+table th:first-child {
+    padding-left: 5% !important;
+}
+
+table tr td:first-child {
+    padding-left: 5% !important;
+}
+
+@media screen and (max-width: 767px) {
+    .responsiveBtn {
+        width: auto;
+        margin: 0 auto;
+        padding: 6px 5%; 
+        display: block;
+        float: none;
+    }  
+
+    .noiseBox {
+        line-height: 2em;
+        font-size: 12vw;
+        border-radius: 2vw;
+        color: #CCC;
+        margin: 0 auto;
+        padding: 0;
+        display: block;
+        width: 2em;
+        height: 2em;
+        max-width: 200px;
+    }
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {}
+
+@media print {
+    table th:first-child {
+        padding-left: 20px !important;
+    }
+    table tr td:first-child {
+        padding-left: 20px !important;
+    }
+}
+
+.animate-enter, 
+.animate-leave
+ { 
+     -webkit-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+     -moz-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+     -ms-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+     -o-transition: 1000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+     transition: 400s cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+     position: relative;
+     display: block;
+ } 
+
+.animate-enter.animate-enter-active, 
+.animate-leave {
+    opacity: 1;
+    top: 0;
+    height: 30px;
+}
+
+.animate-leave.animate-leave-active,
+.animate-enter {
+    opacity: 0;
+    top: -50px;
+    height: 0px;
+}
