@@ -110,8 +110,10 @@ handles the logic of which files will be played
 + play(): void
 + isOver(): boolean
 + prepAnsers: void
-- getSinalBuffer(): buffer
-- getRandomNoSignalBuffer(): buffer
++ getSinalBuffer(): buffer
++ getRandomNoSignalBuffer(): buffer
+
+
 
 *** DONE audioPlayer                                              :service:
 CLOSED: [2016-01-22 Fri 11:06]
