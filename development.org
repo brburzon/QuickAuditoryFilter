@@ -79,7 +79,7 @@ CLOSED: [2016-01-20 Wed 16:29]
 + [ ] stop timer
 + [ ] proceed to the result page
 
-** Coding Plan [3/8]
+** Coding Plan [5/8]
 *** TODO ExerciseCtrl                                          :controller:
 *depends on $location, audioHandler, and userResponseRecords*
 binds model to view
@@ -87,13 +87,15 @@ binds model to view
 + setResponse(response): void
 - isOver(): boolean 
 
-*** TODO keyboardListener                                       :directive:
+*** DONE keyboardListener                                       :directive:
+CLOSED: [2016-01-22 Fri 14:45]
 *depends on userResponseRecords*
 lets user use keyboard to submit response
 + play(): void
 + setResponse(response): void
 
-*** TODO responseBtn                                            :directive:
+*** DONE responseBtn                                            :directive:
+CLOSED: [2016-01-22 Fri 14:45]
 Allows user to use the mouse to set his or her response.
 + submit(response): void
 + isPlaying(): void
