@@ -3,25 +3,22 @@
 describe('Service: resultRecorder', function () {
     // instantiate service
     var resultRecorder,
-        audioFilesCollector,
+        snrSuplier,
         answersHandler,
         responseTimer,
         // mock values
         firstResponse = 0,
-        firstFilename = 'foo.wav',
         secondUserResponse = 2,
-        secondFilename = 'bar.wav',
+        firstSnr = 0,
+        secondSnr = 1,
 
         setRecords,
         getRecords,
         getCorrectAnswer;
 
-    audioFilesCollector = {
-        getSignalAudioData: function() {
-            return [
-                { filename: firstFilename },
-                { filename: secondFilename }
-            ];
+    snrSuplier = {
+        getPreparedSnr: function() {
+            return [firstSnr, secondSnr];
         }
     };
 
@@ -40,7 +37,7 @@ describe('Service: resultRecorder', function () {
 
     beforeEach(function() {
         module('appApp', function($provide) {
-            $provide.value('audioFilesCollector', audioFilesCollector);
+            $provide.value('snrSuplier', snrSuplier);
             $provide.value('answersHandler', answersHandler);
             $provide.value('responseTimer', responseTimer);
             spyOn(responseTimer, 'restart');

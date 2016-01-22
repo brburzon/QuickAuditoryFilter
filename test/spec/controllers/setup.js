@@ -80,68 +80,68 @@ describe('Controller: SetupCtrl', function () {
         expect(SetupCtrl).toBeDefined();
     });
 
-    describe('when signal files changes, it', function() {
-        it('should update signalFiles when a signal file is added',
-           function() {
-               expect(SetupCtrl.signalFiles).toEqual([]);
-               SetupCtrl.addSignalFile('mockedFile');
-               scope.$apply();
-               expect(SetupCtrl.signalFiles).toEqual(['mockedFile']);
-           });
-    });
+    // describe('when signal files changes, it', function() {
+    //     it('should update signalFiles when a signal file is added',
+    //        function() {
+    //            expect(SetupCtrl.signalFiles).toEqual([]);
+    //            SetupCtrl.addSignalFile('mockedFile');
+    //            scope.$apply();
+    //            expect(SetupCtrl.signalFiles).toEqual(['mockedFile']);
+    //        });
+    // });
 
-    describe('when no signal files changes, it', function() {
-        it('should only change when change in no signal files is detected',
-           function() {
-               expect(SetupCtrl.noSignalFiles).toEqual([]);
-               audioFilesCollector.addNoSignalFile('mockedFile');
-               scope.$apply();
-               expect(SetupCtrl.noSignalFiles).toEqual(['mockedFile']);
-           });
-    });
+    // describe('when no signal files changes, it', function() {
+    //     it('should only change when change in no signal files is detected',
+    //        function() {
+    //            expect(SetupCtrl.noSignalFiles).toEqual([]);
+    //            audioFilesCollector.addNoSignalFile('mockedFile');
+    //            scope.$apply();
+    //            expect(SetupCtrl.noSignalFiles).toEqual(['mockedFile']);
+    //        });
+    // });
     
-    describe('when reset is called, it', function() {
-        it('should reset nreps to its default value', function() {
-            var defaultNreps = SetupCtrl.nreps;
-            SetupCtrl.nreps++; 
-            expect(SetupCtrl.nreps).toBe(defaultNreps + 1);
-            SetupCtrl.reset();
-            expect(SetupCtrl.nreps).toBe(defaultNreps);
-        });
+    // describe('when reset is called, it', function() {
+    //     it('should reset nreps to its default value', function() {
+    //         var defaultNreps = SetupCtrl.nreps;
+    //         SetupCtrl.nreps++; 
+    //         expect(SetupCtrl.nreps).toBe(defaultNreps + 1);
+    //         SetupCtrl.reset();
+    //         expect(SetupCtrl.nreps).toBe(defaultNreps);
+    //     });
 
-        it('should reset all collected files', function() {
-            SetupCtrl.reset();
-            expect(audioFilesCollector.resetAll).toHaveBeenCalled();
-        });
-    });
+    //     it('should reset all collected files', function() {
+    //         SetupCtrl.reset();
+    //         expect(audioFilesCollector.resetAll).toHaveBeenCalled();
+    //     });
+    // });
 
 
-    describe('when save is called, it', function() {
-        it('should call audioFilesCollector.prepAudioData', function() {
-            SetupCtrl.save();
-            expect(audioFilesCollector.prepAudioData).toHaveBeenCalled();
-        });
+    // describe('when save is called, it', function() {
+    //     it('should call audioFilesCollector.prepAudioData', function() {
+    //         SetupCtrl.save();
+    //         expect(audioFilesCollector.prepAudioData).toHaveBeenCalled();
+    //     });
 
-        it('should call $window.alert if it failed prepairing data', function() {
-            SetupCtrl.save();
-            var onFailureTask = audioFilesCollector.prepAudioData(1);
-            expect(typeof onFailureTask.then).toEqual('function');
-            var err = 'some error';
-            deferred.reject(err);
-            onFailureTask.then(err);
-            scope.$apply();
-            expect(window.alert).toHaveBeenCalled();
-        });
+    //     it('should call $window.alert if it failed prepairing data', function() {
+    //         SetupCtrl.save();
+    //         var onFailureTask = audioFilesCollector.prepAudioData(1);
+    //         expect(typeof onFailureTask.then).toEqual('function');
+    //         var err = 'some error';
+    //         deferred.reject(err);
+    //         onFailureTask.then(err);
+    //         scope.$apply();
+    //         expect(window.alert).toHaveBeenCalled();
+    //     });
 
-        it('should should change location if successful', function() {
-            SetupCtrl.save();
-            var onSuccessTask = audioFilesCollector.prepAudioData(1); 
-            expect(typeof onSuccessTask.then).toEqual('function');
-            var data = 'data';
-            deferred.resolve(data);
-            onSuccessTask.then(data);
-            scope.$apply();
-            expect(location.path).toHaveBeenCalled();
-        });
-    });
+    //     it('should should change location if successful', function() {
+    //         SetupCtrl.save();
+    //         var onSuccessTask = audioFilesCollector.prepAudioData(1); 
+    //         expect(typeof onSuccessTask.then).toEqual('function');
+    //         var data = 'data';
+    //         deferred.resolve(data);
+    //         onSuccessTask.then(data);
+    //         scope.$apply();
+    //         expect(location.path).toHaveBeenCalled();
+    //     });
+    // });
 });

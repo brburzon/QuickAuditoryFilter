@@ -29,17 +29,20 @@
         vm.gapDuration = 250;
         vm.isResponseEnable = false;
         vm.message = '';
-        try {
-            vm.soundDuration = audioHandler.getSoundDuration();
-        } catch(e) {
-            $location.path('/');
-            location.reload();
-        }
-
         vm.play = play;
         vm.setResponse = setResponse;
 
         audioHandler.prepAnswers();
+        ensureSafeReload();
+
+        function ensureSafeReload() {
+            try {
+                vm.soundDuration = audioHandler.getSoundDuration();
+            } catch(e) {
+                $location.path('/');
+                location.reload();
+            }
+        };
 
         function play() {
             disableUserResponse();

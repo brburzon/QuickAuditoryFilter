@@ -10,45 +10,34 @@
 angular.module('appApp')
     .controller('SetupCtrl', SetupCtrl);
 
-function SetupCtrl($scope, $location, $window, audioFilesCollector) {
+function SetupCtrl($scope, $location, $window, snrSuplier) {
     var vm = this;
 
-    vm.addSignalFile = audioFilesCollector.addSignalFile;
-    vm.addNoSignalFile = audioFilesCollector.addNoSignalFile;
-    vm.signalFiles = audioFilesCollector.getSignalFiles();
-    vm.noSignalFiles = audioFilesCollector.getNoSignalFiles();
-    vm.removeSignalByIndex = audioFilesCollector.removeSignalFileByIndex;
-    vm.removeNoSignalByIndex = audioFilesCollector.removeNoSignalFileByIndex;
-    vm.clearList = audioFilesCollector.resetAll;
+    vm.snrList = snrSuplier.getSnrList();
+    vm.addSnr = snrSuplier.addSnr;
+    vm.removeSnrByIndex = snrSuplier.removeSnrByIndex;
     vm.reset = reset;
     vm.save = save;
     vm.nreps = 4;
 
     $scope.$watchCollection(function() {
-        return audioFilesCollector.getSignalFiles();
+        return snrSuplier.getSnrList();
     }, function(values) {
         if(values !== [])
-            vm.signalFiles = values;
-    });
-
-    $scope.$watchCollection(function() {
-        return audioFilesCollector.getNoSignalFiles();
-    }, function(values) {
-        if(values !== [])
-            vm.noSignalFiles = values;
+            vm.snrList = values;
     });
 
     function reset() {
         vm.nreps = 4;
-        audioFilesCollector.resetAll();
+        snrSuplier.resetAll();
     }
-    
+
     function save() {
-        audioFilesCollector.prepAudioData(vm.nreps)
-            .then(function(data) {
-                $location.path('/exercise');
-            }, function(err) {
-                $window.alert(err);
-            });
+        try {
+            snrSuplier.prepSnr(vm.nreps);
+            $location.path('/exercise');
+        } catch(invalidUserSetupError) {
+            $window.alert(invalidUserSetupError);
+        }
     }
 }

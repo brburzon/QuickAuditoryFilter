@@ -1,129 +1,99 @@
 * Development Notes
+*Quick Auditory Filter will use the same structure as Constant Stimuli Hearing Experiments*
 
 There are three phases that the software goes through. The following phases are setup, exercise, and result. Each of the
 phases lead to the next, but not the opposite direction. 
 
-** Current Tasks [0/1]
-*** TODO finish writing test
+** Tasks [0/1]
+- [ ] Copy qAF into this new structure
+- [ ] Keep test coverage above 80%
 
 ** Future Tasks [0/2]
-*** TODO add home page
-*** TODO add about page
+*** TODO Create Home Page
+This is where users can get to know more about the project.
 
-** Problem [1/2]
-+ [X] compatibility issues with IOS when trying to upload sound files. It redirects to photos instead
-+ [ ] fix CSS: when width is small, response boxes are too small (minor)
+*** TODO add about page
+This is where users can see the group of peopl who are involved with the project.
+
+** Problem [/]
 
 ** Links
-[[http://stackoverflow.com/questions/23267837/testing-immediately-resolved-defer-with-jasmine#23267838][StackOverflow thread that shows how to test promises in angular js.]]
+- [[http://stackoverflow.com/questions/23267837/testing-immediately-resolved-defer-with-jasmine#23267838][StackOverflow thread that shows how to test promises in angular js.]]
+[[http://www.html5rocks.com/en/tutorials/webaudio/intro/][- Introduction to Web Audio API]]
 
 * Setup Phase
+** User Experience
+This is the first page the users will see. Here they can add an array of sound to noise (SNR) values that will be 
+used to generate each signal sounds during the exercise page. After adding the SNR values, they have the option to
+set how many times they want to present each SNR in the exercise.
 
-** Requirements [8/8]
-
-+ [X] upload signal or no-signal audio files
-+ [X] remove signal or no-signal audio files
-+ [X] set the number of repetition of each signal audio files
-+ [X] view sample experiments
-+ [X] select sample experiments
+** Requirements [6/6]
++ [X] add SNR value to array
++ [X] remove SNR value from the array 
++ [X] set the number of repetition of each SNR value
 + [X] reset all
-+ [X] validate files before saving 
++ [X] validate input before saving 
 + [X] save to proceed to the experiment phase
 
-** Coding Plan [8/8]
-
+** Coding Plan [4/4]
 *** DONE SetupCtrl                                             :controller:
-
-CLOSED: [2016-01-06 Wed 10:07]
-*depends on audioFilesCollector, uiModal*
-+ addSignalFile(file): void
-+ addNoSignalFile(file): void
-+ getSignalFiles(): array
-+ getNoSignalFiles(): array
-+ removeSignalByIndex(i): void
-+ removeNoSignalByIndex(i): void
-+ showSapmleOptions(): void
-+ save(nreps): void
+CLOSED: [2016-01-22 Fri 10:05]
+Bind all services to the view.
++ addSnr(number): void
++ removeSnrByIndex(i): void
++ getSnrList(): array
++ save(): void
 + reset(): void
 
-*** DONE SamplesModalInstanceCtrl                              :controller:
-CLOSED: [2016-01-13 Wed 17:06]
-*depends on audioFilesCollector, uiModal*
-+ getSamples(): array
-+ useSample(option): void
-+ cancel(): void
 
-*** DONE listFiles                                              :directive:
-CLOSED: [2016-01-06 Wed 03:52]
-list files
+*** DONE listSnr                                                :directive:
+CLOSED: [2016-01-22 Fri 09:19]
++ add(): void
++ removeSnr(): void
++ promptUser(): array
 
-*** DONE fileReader                                             :directive:
-CLOSED: [2016-01-06 Wed 03:52]
-*depends on audioFilesCollector*
-+ readFiles(): array
+*** DONE snrSuplier                                               :service:
+CLOSED: [2016-01-22 Fri 10:05]
+*depends on snrCollection*
++ addSnr(): void
++ removeSnrByIndex(index): void
++ getSnrList(): array
++ prepSnr(number): array
++ validateUserSetup(): throw
 
-*** DONE samplesFilesDataAccess                                   :service:
-CLOSED: [2016-01-04 Mon 16:14]
-+ get(url): promise
-
-*** DONE audioFilesCollector                                      :service:
-CLOSED: [2016-01-04 Mon 10:38]
-*depends on signalFileHandler and noSignalFileHandler*
-+ addSignalFile(file): void
-+ addNoSignalFile(file): void
-+ removeSignalFileByIndex(pos): void
-+ removeNoSigalFileByIndex(pos): void
-+ getSignalFiles(): array
-+ getNoSignalFiles(): array
-+ decodeSignalAudioData(nreps): array
-+ decodeNoSignalAudioData(): array
-+ prepAudioData(nreps): void
-+ resetAll(): void
-
-*** DONE audioFilesContainer                                      :service:
-CLOSED: [2016-01-04 Mon 10:38]
-*depends on audioFileDecoder*
-+ add(files): void
-+ remove(file): void
-+ getFiles(): array
-+ getDecodedAudioData(): array
-+ clearAll(): void
-
-*** DONE audioFileDecoder                                         :service:
-CLOSED: [2016-01-04 Mon 10:37]
- + decode(arrayBuffer): buffer
+*** DONE snrCollection                                            :service:
+CLOSED: [2016-01-20 Wed 16:29]
++ addSnr(): void
++ removeSnrByIndex(index): void
++ getSnrList(): array
 
 * Exercise Phase
+** Requirements [0/9] 
++ [ ] use the mouse 
++ [ ] use the keyboard
++ [ ] play sounds (1 signal, 2 no signal)
++ [ ] choose a respose
++ [ ] record user response
++ [ ] go to next round and iterate until the exercise is done
++ [ ] start timer
++ [ ] stop timer
++ [ ] proceed to the result page
 
-** Requirements [9/9] 
-+ [X] use the mouse 
-+ [X] use the keyboard
-+ [X] play sounds (1 signal, 2 no signal)
-+ [X] choose a respose
-+ [X] record user response
-+ [X] go to next round and iterate until the exercise is done
-+ [X] start timer
-+ [X] stop timer
-+ [X] proceed to the result page
-
-** Coding Plan [8/8]
-*** DONE ExerciseCtrl                                          :controller:
-CLOSED: [2016-01-10 Sun 23:03]
+** Coding Plan [3/8]
+*** TODO ExerciseCtrl                                          :controller:
 *depends on $location, audioHandler, and userResponseRecords*
 binds model to view
 + play(): void
 + setResponse(response): void
 - isOver(): boolean 
 
-*** DONE keyboardListener                                       :directive:
-CLOSED: [2016-01-13 Wed 17:02]
+*** TODO keyboardListener                                       :directive:
 *depends on userResponseRecords*
 lets user use keyboard to submit response
 + play(): void
 + setResponse(response): void
 
-*** DONE responseBtn                                            :directive:
-CLOSED: [2016-01-10 Sun 22:35]
+*** TODO responseBtn                                            :directive:
 Allows user to use the mouse to set his or her response.
 + submit(response): void
 + isPlaying(): void
@@ -132,9 +102,8 @@ Allows user to use the mouse to set his or her response.
 - blink(): void 
 - blinkListener(currentActiveBtn): void
 
-*** DONE audioHandler                                             :service:
-CLOSED: [2016-01-09 Sat 19:38]
-*depends on audioPlayer, audioFilesCollector, and ansersHandler*
+*** TODO audioHandler                                             :service:
+*depends on audioPlayer, snrSuplier, and ansersHandler*
 handles the logic of which files will be played
 + play(): void
 + isOver(): boolean
@@ -143,47 +112,46 @@ handles the logic of which files will be played
 - getRandomNoSignalBuffer(): buffer
 
 *** DONE audioPlayer                                              :service:
-CLOSED: [2016-01-09 Sat 04:00]
+CLOSED: [2016-01-22 Fri 11:06]
 *depends on $interval, webAudioContextFactory*
 abstracts away how the audio is being played
 + play(audioData, pauseDuration): promise
 
-*** DONE resultRecorder -> responseRecorder                       :service:
-CLOSED: [2016-01-13 Wed 17:06]
-*depends on answersHandler, responseTimer, and audioFilesCollector*
+*** TODO resultRecorder -> responseRecorder                       :service:
+*depends on answersHandler, responseTimer, and snrSuplier*
 Used to create the result table
 
 *EXAMPLE*
-| Round | Signal     | Expected | Actual | Correct | Timer |
-|-------+------------+----------+--------+---------+-------|
-|     1 | signal.wav |        1 |      3 | false   | 140ms |
+| Round | SNR | Expected | Actual | Correct | Timer |
+|-------+-----+----------+--------+---------+-------|
+|     1 |  13 |        1 |      3 | false   | 140ms |
 
 + setRecords(response): void
 + getRecords(): array
 + getCorrectAnswer(): boolean
 
-*** DONE answersHandler                                             :service:
-CLOSED: [2016-01-08 Fri 22:56]
+*** DONE answersHandler                                           :service:
+CLOSED: [2016-01-22 Fri 10:10]
 creates an array of randomly generated answers
 + storeNewRandomAnswers(count): void
 + getAnswerForIndex(index): int
 + getSize(): int
 
 *** DONE responseTimer                                            :service:
-CLOSED: [2016-01-08 Fri 20:54]
+CLOSED: [2016-01-22 Fri 10:09]
 Used to keep track of how long it took the user to respond
 + restart(): void
 + getTime(): string
 + pause(): void
 
 * Result Phase
-** Problem [2/2]
-- [X] AngularPrint not displaying table
-- [X] reset button is not resetting the audio files correctly
+** Problem [0/2]
+- [ ] AngularPrint not displaying table
+- [ ] reset button is not resetting the audio files correctly
   - temporary sulotion is to reroute the user to the setup page and reload the page.
 
-** Requirements [4/4]
-- [X] see the result of the experiment in a graph
-- [X] print the result
-- [X] export the graph into an easy to read file format
-- [X] reset all and go back to setup page
+** Requirements [0/4]
+- [ ] see the result of the experiment in a graph
+- [ ] print the result
+- [ ] export the graph into an easy to read file format
+- [ ] reset all and go back to setup page
