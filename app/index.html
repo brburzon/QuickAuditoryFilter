@@ -78,17 +78,20 @@
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
     <script src="bower_components/angularPrint/angularPrint.js"></script>
+    <script src="bower_components/mathjs/index.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script type="text/javascript" src="/scripts/lib/tableExport.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jquery.base64.js"></script>
-    <script type="text/javascript" src="/scripts/lib/html2canvas.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/libs/sprintf.js">
+    <script type="text/javascript" src="/scripts/lib/tableExport/tableExport.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jquery.base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/html2canvas.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/libs/sprintf.js">
     </script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/jspdf.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/libs/base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/jspdf.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/libs/base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/gaussian/gaussian.js"></script>
+    <script type="text/javascript" src="/scripts/lib/digitalSoundProcessing/dsp.js"></script>
 
 
         <script src="scripts/app.js"></script>
@@ -110,6 +113,9 @@
         <script src="scripts/services/snrcollection.js"></script>
         <script src="scripts/services/snrsuplier.js"></script>
         <script src="scripts/controllers/listsnr.js"></script>
+        <script src="scripts/services/fftfactory.js"></script>
+        <script src="scripts/services/buffergenerator.js"></script>
+        <script src="scripts/services/signalprocessor.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -21,6 +21,10 @@ This is where users can see the group of peopl who are involved with the project
 - [[http://stackoverflow.com/questions/23267837/testing-immediately-resolved-defer-with-jasmine#23267838][StackOverflow thread that shows how to test promises in angular js.]]
 [[http://www.html5rocks.com/en/tutorials/webaudio/intro/][- Introduction to Web Audio API]]
 
+* Problem
+- got undefined on line 27 of math.min.js
+  - to fix this, delete math.min.js and use math.js instead from bower_components/mathjs/dist/math.js
+
 * Setup Phase
 ** User Experience
 This is the first page the users will see. Here they can add an array of sound to noise (SNR) values that will be 
@@ -79,7 +83,7 @@ CLOSED: [2016-01-20 Wed 16:29]
 + [ ] stop timer
 + [ ] proceed to the result page
 
-** Coding Plan [5/8]
+** Coding Plan [7/13]
 *** TODO ExerciseCtrl                                          :controller:
 *depends on $location, audioHandler, and userResponseRecords*
 binds model to view
@@ -105,23 +109,54 @@ Allows user to use the mouse to set his or her response.
 - blinkListener(currentActiveBtn): void
 
 *** TODO audioHandler                                             :service:
-*depends on audioPlayer, snrSuplier, and ansersHandler*
+*depends on audioPlayer, bufferGenerator snrSuplier, and ansersHandler*
 handles the logic of which files will be played
-+ play(): void
++ activate(): void
++ playSounds(): void
 + isOver(): boolean
-+ prepAnsers: void
-+ getSinalBuffer(): buffer
-+ getRandomNoSignalBuffer(): buffer
-
-
++ prepAnswers(): void
 
 *** DONE audioPlayer                                              :service:
 CLOSED: [2016-01-22 Fri 11:06]
 *depends on $interval, webAudioContextFactory*
 abstracts away how the audio is being played
-+ play(audioData, pauseDuration): promise
++ play(audioBufferr, pauseDuration): promise
 
-*** TODO resultRecorder -> responseRecorder                       :service:
+*** TODO bufferGenerator
+*depends on webAudioContextFactory qafAlgorithm*
+- generateSignalBuffer(): buffer
+- generateNoSignalBuffer(): buffer
+
+*** TODO SignalProcessor 
+*depends on webAudioContextFactory, fftFactory*
+- populateSignalBuffer(array, snr): void
+- populateNoSignalBuffer(array, snr):void
+- createNoise(): array
+- createToneForIndex(index, snr): number
+
+*noise is generated differently*
+- loop through half of the array apply calculated amplitude from snr value
+  - amplitude should have an imaginary and a real number
+- mirror first half to the other end
+- apply inverse fast fourier transform to the real and imaginary parts
+- find root mean square value from the array ruturned by fft
+- divide each elements by rms * sigma
+  - inverse.map(x => x / rms * sigma)
+    
+*** TODO SignalProcessorUtil
+- getRamp(value, rampDuration): number
+- applyRootMeanSquare(array): void
+- roundUpToNextPowerOfTwo(size): number
+
+*** TODO qafCore 
+
+
+*** DONE fastFourierTransformFactory
+CLOSED: [2016-01-25 Mon 14:51]
++ getInstance(): object
+
+*** DONE resultRecorder -> responseRecorder                       :service:
+CLOSED: [2016-01-25 Mon 14:41]
 *depends on answersHandler, responseTimer, and snrSuplier*
 Used to create the result table
 

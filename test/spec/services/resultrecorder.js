@@ -80,10 +80,10 @@ describe('Service: resultRecorder', function () {
     });
 
     describe('when setRecords is called, it', function() {
-        it('should set the current signal filename', function() {
+        it('should set the current signal snr', function() {
             setRecords(firstResponse);
-            var filename = getRecords()[0].filename;
-            expect(filename).toEqual(firstFilename);
+            var snr = getRecords()[0].snr;
+            expect(snr).toEqual(firstSnr);
         });
 
         it('should set the current correct answer', function() {
@@ -113,10 +113,10 @@ describe('Service: resultRecorder', function () {
         it('should increment round for the next call of setRecords', function() {
             setRecords(firstResponse);
             setRecords(secondUserResponse);
-            var accessFirstFile = getRecords()[0].filename,
-                accessSecondFile = getRecords()[1].filename;
-            expect(accessFirstFile).toEqual(firstFilename);
-            expect(accessSecondFile).toEqual(secondFilename);
+            var accessFirstSnr = getRecords()[0].snr,
+                accessSecondSnr = getRecords()[1].snr;
+            expect(accessFirstSnr).toEqual(firstSnr);
+            expect(accessSecondSnr).toEqual(secondSnr);
         });
     });
 

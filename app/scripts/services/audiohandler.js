@@ -13,10 +13,10 @@
         .factory('audioHandler', audioHandler);
 
     /** @ngInject */
-    function audioHandler(audioPlayer, audioFilesCollector, answersHandler) {
-        var signalAudioDataList = audioFilesCollector.getSignalAudioData(),
-            noSignalAudioDataList = audioFilesCollector.getNoSignalAudioData(),
-            round = 0;
+    function audioHandler(audioPlayer, snrSuplier, bufferGenerator, answersHandler) {
+        var snrList = snrSuplier.getPreparedSnr(),
+            round = 0,
+            duration;
 
         var handler = {};
 
@@ -28,7 +28,7 @@
         return handler;
 
         function prepAnswers() {
-            var numberOfSingalFiles = signalAudioDataList.length;
+            var numberOfSingalFiles = snrList.length;
             answersHandler.storeNewRandomAnswers(numberOfSingalFiles);
         }
 
@@ -62,7 +62,7 @@
         }
 
         function getSoundDuration() {
-            return signalAudioDataList[round].duration;
+            return duration;
         }
 
         function isOver() {
@@ -73,17 +73,11 @@
         }
 
         function getSignalBuffer() {
-            return signalAudioDataList[round];
+            return bufferGenerator.generateSignalBuffer();
         }
 
         function getRandomNoSignalBuffer() {
-            var randomIndex = getRandomIndex();
-            return noSignalAudioDataList[randomIndex];
-        }
-
-        function getRandomIndex() {
-            var maxIndex = noSignalAudioDataList.length - 1;
-            return Math.floor(Math.random() * maxIndex);
+            return bufferGenerator.generateNoSignalBuffer();
         }
     }
 })();

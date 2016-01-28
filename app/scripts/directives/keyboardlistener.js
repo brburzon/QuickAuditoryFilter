@@ -53,7 +53,7 @@
             }
 
             function isOkToPress(keyCode) {
-                if($location.path() === scope.forUrl && scope.isEnable || keyCode === ENTER_KEY_CODE) 
+                if($location.path().contains(scope.forUrl) && scope.isEnable || keyCode === ENTER_KEY_CODE) 
                     return true;
                 else
                     return false;
