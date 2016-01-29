@@ -23,11 +23,11 @@
         function play(audioData, pauseDuration) {
             var deferred = $q.defer(),
                 limitToOnce = 1,
-                overAllDuration = audioData.duration + pauseDuration; 
+                overAllDuration = audioData.duration * 1000 + pauseDuration; 
 
             $timeout(function() {
                 var bufferSource = audioContext.createBufferSource(); 
-                bufferSource.buffer = audioData.buffer;
+                bufferSource.buffer = audioData;
                 bufferSource.connect(audioContext.destination);
                 bufferSource.start(0);
                 deferred.resolve('done'); 

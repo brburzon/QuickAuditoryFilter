@@ -14,7 +14,7 @@
                 <tbody>
                     <tr ng-repeat="record in vm.getRecords() track by $index">
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ record.filename }}</td>
+                        <td>{{ record.snr }}</td>
                         <td>{{ record.correctAnswer + 1 }}</td>
                         <td>{{ record.userResponse + 1 }}</td>
                         <td>{{ record.correctness }}</td>

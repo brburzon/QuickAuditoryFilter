@@ -1,18 +1,19 @@
 'use strict';
 
 describe('Service: signalProcessor', function () {
+    var signalProcessor,
+        qafUtil;
 
-  // load the service's module
-  beforeEach(module('appApp'));
+    beforeEach(module('appApp', function($provide) {
 
-  // instantiate service
-  var signalProcessor;
-  beforeEach(inject(function (_signalProcessor_) {
-    signalProcessor = _signalProcessor_;
-  }));
+    }));
 
-  it('should do something', function () {
-    expect(!!signalProcessor).toBe(true);
-  });
+    beforeEach(inject(function (_signalProcessor_) {
+        signalProcessor = _signalProcessor_;
+    }));
+
+    it('should do something', function () {
+        expect(!!signalProcessor).toBe(true);
+    });
 
 });

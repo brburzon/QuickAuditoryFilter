@@ -13,10 +13,9 @@
         .factory('audioHandler', audioHandler);
 
     /** @ngInject */
-    function audioHandler(audioPlayer, snrSuplier, bufferGenerator, answersHandler) {
-        var snrList = snrSuplier.getPreparedSnr(),
-            round = 0,
-            duration;
+    function audioHandler(audioPlayer, bufferGenerator, answersHandler) {
+        var numberOfRounds = bufferGenerator.getNumberOfSignalBuffers(),
+            round = 0;
 
         var handler = {};
 
@@ -28,12 +27,11 @@
         return handler;
 
         function prepAnswers() {
-            var numberOfSingalFiles = snrList.length;
-            answersHandler.storeNewRandomAnswers(numberOfSingalFiles);
+            answersHandler.storeNewRandomAnswers(numberOfRounds);
         }
 
         function playSounds(gapDuration) {
-            var buffers = getBuffersInPlayOrder();
+            var buffers = getBuffersInPlayOrder(round);
 
             audioPlayer
                 .play(buffers[0], gapDuration)
@@ -47,37 +45,29 @@
             round++;
         }
 
-        function getBuffersInPlayOrder() {
+        function getBuffersInPlayOrder(round) {
             var signalPosition = answersHandler.getAnswerForIndex(round),
                 numOfSoundsToPlay = 3,
                 buffers = [];
 
             for(var i = 0; i < numOfSoundsToPlay; i++) {
                 if(i === signalPosition)
-                    buffers[i] = getSignalBuffer();
+                    buffers[i] = bufferGenerator.generateSignalBuffer(round);
                 else
-                    buffers[i] = getRandomNoSignalBuffer();
+                    buffers[i] = bufferGenerator.generateNoSignalBuffer(round);
             }
             return buffers;
         }
 
         function getSoundDuration() {
-            return duration;
+            return bufferGenerator.getBufferDuration();
         }
 
         function isOver() {
-            if(round >= answersHandler.getSize())
+            if(round >= numberOfRounds)
                 return true;
             else
                 return false;
-        }
-
-        function getSignalBuffer() {
-            return bufferGenerator.generateSignalBuffer();
-        }
-
-        function getRandomNoSignalBuffer() {
-            return bufferGenerator.generateNoSignalBuffer();
         }
     }
 })();

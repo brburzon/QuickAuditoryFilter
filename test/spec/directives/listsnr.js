@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: listFiles', function () {
+describe('Directive: listSnr', function () {
 
     // load the directive's module
     beforeEach(module('appApp'));
@@ -13,7 +13,7 @@ describe('Directive: listFiles', function () {
     }));
 
     it('should make hidden element visible', inject(function ($compile) {
-        element = angular.element('<list-files></list-files>');
+        element = angular.element('<list-snr></list-snr>');
         element = $compile(element)(scope);
         expect(element.text()).toBe('');
     }));

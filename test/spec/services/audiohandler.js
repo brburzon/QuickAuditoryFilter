@@ -3,17 +3,12 @@
 describe('Service: audioHandler', function () {
     var audioHandler,
         audioPlayer,
-        audioFilesCollector,
+        bufferGenerator,
         answersHandler,
         deferred;
 
     audioPlayer = {
         play: function() {}
-    };
-
-    audioFilesCollector = {
-        getSignalAudioData: function() {},
-        getNoSignalAudioData: function() {}
     };
 
     answersHandler = {
@@ -32,21 +27,22 @@ describe('Service: audioHandler', function () {
     beforeEach(module('appApp', function($provide) {
         spyOn(audioPlayer, 'play').and.returnValue(deferred);;
 
-        spyOn(audioFilesCollector, 'getSignalAudioData')
-            .and.returnValue([{ bufferArray: 'signal-foo', duration: '1ms' },
-                              { bufferArray: 'signal-bar', duration: '1ms' },
-                              { bufferArray: 'signal-foobar', duration: '1ms' }]);
-        spyOn(audioFilesCollector, 'getNoSignalAudioData')
-            .and.returnValue([{ bufferArray: 'no-signal-foo' },
-                              { bufferArray: 'no-signal-bar' },
-                              { bufferArray: 'no-signal-foobar' }]);
+        bufferGenerator =
+            jasmine.createSpyObj('bufferGenerator', [
+                'getNumberOfSignalBuffers',
+                'getBufferDuration',
+                'generateSignalBuffer',
+                'generateNoSignalBuffer'
+            ]);
+
+        bufferGenerator.getNumberOfSignalBuffers.and.returnValue(3);
 
         spyOn(answersHandler, 'storeNewRandomAnswers');
         spyOn(answersHandler, 'getAnswerForIndex').and.returnValues(0,1,2);
         spyOn(answersHandler, 'getSize').and.returnValue('3');
 
         $provide.value('audioPlayer', audioPlayer);
-        $provide.value('audioFilesCollector', audioFilesCollector);
+        $provide.value('bufferGenerator', bufferGenerator);
         $provide.value('answersHandler', answersHandler);
     }));
 
@@ -78,8 +74,9 @@ describe('Service: audioHandler', function () {
 
     describe('when getSoundDuration is called, it', function() {
         it('should return the sound duration', function() {
+            bufferGenerator.getBufferDuration.and.returnValue(250);
             var duration = audioHandler.getSoundDuration();
-            expect(duration).toEqual('1ms');
+            expect(duration).toEqual(250);
         });
     });
 

@@ -124,6 +124,8 @@ abstracts away how the audio is being played
 
 *** TODO bufferGenerator
 *depends on webAudioContextFactory qafAlgorithm*
+- getBufferDuration(): number
+- getNumberOfSignalBuffers(): number
 - generateSignalBuffer(): buffer
 - generateNoSignalBuffer(): buffer
 

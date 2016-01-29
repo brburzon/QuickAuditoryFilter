@@ -13,7 +13,7 @@
         .controller('ResultCtrl', ResultCtrl);
 
     /** @ngInject */
-    function ResultCtrl($scope, $location, resultRecorder, audioFilesCollector) {
+    function ResultCtrl($scope, $location, resultRecorder, snrSuplier) {
         var records = resultRecorder.getRecords();
 
         var vm = this;
@@ -45,7 +45,7 @@
         }
 
         function reset() {
-            audioFilesCollector.resetAll();
+            snrSuplier.resetAll();
             location.reload();
             $location.path('/');
         }
