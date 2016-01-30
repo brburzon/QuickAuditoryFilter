@@ -1,8 +1,0 @@
-<div class="list-group">
-    <span id="place-holder"></span>
-    <a ng-animate="'animate'" ng-href="" ng-repeat="file in vm.files track by $index" id="itemList" class="animate text-center list-group-item">
-        <span class="list-item">{{ file.name }}</span>
-        <span class="glyphicon glyphicon-minus remove" aria-hidden="true"
-              ng-click="vm.remove({i:$index})"></span>
-    </a>
-</div>

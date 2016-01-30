@@ -52,3 +52,4 @@ detects a change in the code.
 Running `grunt test` will run the unit tests with karma.
 
 Run `grunt karma:unit` for faster result when running unit tests.
+

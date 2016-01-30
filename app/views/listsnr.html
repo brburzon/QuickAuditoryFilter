@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-10">
+        <div class="list-group col-xs-12 col-md-12">
+            <div class="list-group">
+                <a href="" class="animate text-center list-group-item" ng-if="vm.snrList.length == 0" ng-click="vm.promptUser()">Add values</a>
+                <a ng-animate="'animate'" ng-href="" ng-repeat="snr in vm.snrList track by $index" class="animate text-center list-group-item"
+                   ng-class="{ 'active': $index == vm.selected }" ng-click="vm.highlightSelected($index)">
+                    <span class="list-item">{{ snr }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="row">
+            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="vm.promptUser()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="vm.removeSnr($index)">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</div>

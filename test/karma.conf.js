@@ -80,8 +80,7 @@ module.exports = function(config) {
 
     preprocessors: {  
         "app/scripts/*.js": "coverage",
-        "app/scripts/!(lib)/*.js": "coverage",
-        "app/scripts/lib/!(jspdf)/*.js": "coverage"
+        "app/scripts/!(lib)/**/*.js": "coverage"
     },
 
     coverageReporter: {  

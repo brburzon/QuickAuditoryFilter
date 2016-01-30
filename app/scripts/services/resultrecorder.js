@@ -12,10 +12,10 @@
         .factory('resultRecorder', resultRecorder);
 
     /** @ngInject*/
-    function resultRecorder(answersHandler, responseTimer, audioFilesCollector) {
+    function resultRecorder(answersHandler, responseTimer, snrSuplier) {
         var round = 0,
             responses = [],
-            audioFiles = audioFilesCollector.getSignalAudioData();
+            snrList = snrSuplier.getPreparedSnr();
 
         var recorder = {};
 
@@ -30,7 +30,7 @@
             responseTimer.pause();
             var record = {};
 
-            record.filename = audioFiles[round].filename;
+            record.snr = snrList[round];
             record.correctAnswer = answersHandler.getAnswerForIndex(round);
             record.userResponse = userResponse;
             record.correctness = record.userResponse === record.correctAnswer;

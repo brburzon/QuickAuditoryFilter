@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Quick Auditory Filter</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -35,7 +35,7 @@
               <!-- <span class="icon-bar"></span> -->
               <!-- </button> --> 
 
-              <a class="navbar-brand" href="#/">The Method of Constant Stimuli For Hearing Experiments <span class="fancy-font">online</span></a>
+              <a class="navbar-brand" href="#/">Quick Auditory Filter</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -62,20 +62,12 @@
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/mathjs/dist/math.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -91,27 +83,22 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script type="text/javascript" src="/scripts/lib/tableExport.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jquery.base64.js"></script>
-    <script type="text/javascript" src="/scripts/lib/html2canvas.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/libs/sprintf.js">
+    <script type="text/javascript" src="/scripts/lib/tableExport/tableExport.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jquery.base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/html2canvas.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/libs/sprintf.js">
     </script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/jspdf.js"></script>
-    <script type="text/javascript" src="/scripts/lib/jspdf/libs/base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/jspdf.js"></script>
+    <script type="text/javascript" src="/scripts/lib/tableExport/jspdf/libs/base64.js"></script>
+    <script type="text/javascript" src="/scripts/lib/gaussian/gaussian.js"></script>
+    <script type="text/javascript" src="/scripts/lib/digitalSoundProcessing/dsp.js"></script>
 
 
         <script src="scripts/app.js"></script>
         <script src="scripts/services/webaudiocontextfactory.js"></script>
-        <script src="scripts/services/audiodatadecoder.js"></script>
-        <script src="scripts/services/audiofilescontainer.js"></script>
-        <script src="scripts/services/audiofilescollector.js"></script>
-        <script src="scripts/services/samplefilesdataaccess.js"></script>
-        <script src="scripts/directives/listfiles.js"></script>
-        <script src="scripts/directives/filereader.js"></script>
+        <script src="scripts/directives/listsnr.js"></script>
         <script src="scripts/controllers/setup.js"></script>
         <script src="scripts/controllers/exercise.js"></script>
-        <script src="scripts/controllers/samplesmodalinstance.js"></script>
-        <script src="scripts/directives/showsamplesbtn.js"></script>
         <script src="scripts/services/responsetimer.js"></script>
         <script src="scripts/services/answershandler.js"></script>
         <script src="scripts/services/resultrecorder.js"></script>
@@ -122,8 +109,13 @@
         <script src="scripts/controllers/result.js"></script>
         <script src="scripts/directives/keyboardlistener.js"></script>
         <script src="scripts/directives/exporttable.js"></script>
-        <script src="scripts/controllers/filereader.js"></script>
-        <script src="scripts/controllers/showsamples.js"></script>
+        <script src="scripts/services/snrcollection.js"></script>
+        <script src="scripts/services/snrsuplier.js"></script>
+        <script src="scripts/controllers/listsnr.js"></script>
+        <script src="scripts/services/fftfactory.js"></script>
+        <script src="scripts/services/qafutil.js"></script>
+        <script src="scripts/services/buffergenerator.js"></script>
+        <script src="scripts/services/signalprocessor.js"></script>
         <!-- endbuild -->
 </body>
 </html>

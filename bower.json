@@ -13,7 +13,8 @@
     "angular-bootstrap": "~0.14.3",
     "ng-file-upload": "~11.0.1",
     "ng-file-upload-shim": "~11.0.1",
-    "angularPrint": "angular-print#~0.3.8"
+    "angularPrint": "~0.3.8",
+    "mathjs": "^2.4.2"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
