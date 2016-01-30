@@ -8,6 +8,7 @@
      * @description
      * # qafUtil
      * Factory in the appApp.
+     * Used by SignalProcessor service.
      */
     angular.module('appApp')
         .factory('qafUtil', qafUtil);
@@ -24,22 +25,18 @@
 
         return qaf;
 
-        var test = true;
-
         function applyRamp(bufferArray, rampSize) {
             var endIndex = bufferArray.length -1;
 
-            console.log("before",bufferArray.slice(100,150));
             for(var i = 1; i < rampSize; i++) {
-                var rampValue = (1 - Math.cos((bufferArray[i]/rampSize) * Math.PI))/2;
+                var rampValue = getRamp(i, rampSize);
                 bufferArray[i] = bufferArray[i] * rampValue;
-                bufferArray[endIndex] = bufferArray[endIndex] * rampValue;
-                endIndex--;
-                // console.log("rampValue", rampValue);
-            }
-            console.log("after",bufferArray.slice(100,150));
 
-            console.log("\n\n");
+                rampValue = getRamp(endIndex, rampSize);
+                bufferArray[endIndex] = bufferArray[endIndex] * rampValue;
+
+                endIndex = endIndex - 1;
+            }
         }
 
         function getRamp(val, rampSize) {
