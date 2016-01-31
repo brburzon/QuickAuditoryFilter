@@ -25,6 +25,7 @@ describe('Service: bufferGenerator', function () {
                                      'populateSignalBuffer'
                                  ]);
         snrSuplier = jasmine.createSpyObj('snrSuplier', ['getPreparedSnr']);
+        snrSuplier.getPreparedSnr.and.returnValue(['foo', 'bar', 'baz']);
 
         $provide.value('webAudioContextFactory', webAudioContextFactory);
         $provide.value('signalProcessor', signalProcessor);
@@ -37,7 +38,6 @@ describe('Service: bufferGenerator', function () {
 
     describe('when getNumberOfSignalBuffers is called, it', function() {
         it('should return the number of prepared snr from snrSuplier', function() {
-            snrSuplier.getPreparedSnr.and.returnValue(['foo', 'bar', 'baz']);
             var numberOfPreparedSnr = bufferGenerator.getNumberOfSignalBuffers();
             expect(numberOfPreparedSnr).toBe(3);
         });
@@ -82,6 +82,7 @@ describe('Service: bufferGenerator', function () {
             bufferGenerator.generateNoSignalBuffer(0);
             expect(audioContext.createBuffer.calls.count()).toBe(1);
         });
+
         it('should call signalProcessor.populateNoSignalBuffer for each channels', function() {
             bufferGenerator.generateNoSignalBuffer(0);
             expect(signalProcessor.populateNoSignalBuffer.calls.count()).toBe(2);
