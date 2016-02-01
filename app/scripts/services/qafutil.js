@@ -18,7 +18,6 @@
         var qaf = {};
 
         qaf.applyRamp = applyRamp;
-        qaf.getRamp = getRamp;
         qaf.roundUpToPowerOfTwo = roundUpToPowerOfTwo ;
         qaf.inverseFastFourierTransform = inverseFastFourierTransform ;
         qaf.applyRootMeanSquare = applyRootMeanSquare;
@@ -26,16 +25,12 @@
         return qaf;
 
         function applyRamp(bufferArray, rampSize) {
-            var endIndex = bufferArray.length -1;
+            var endIndex = bufferArray.length - 1;
 
-            for(var i = 1; i < rampSize; i++) {
+            for(var i = 1; i <= rampSize; i++) {
                 var rampValue = getRamp(i, rampSize);
                 bufferArray[i] = bufferArray[i] * rampValue;
-
-                rampValue = getRamp(endIndex, rampSize);
-                bufferArray[endIndex] = bufferArray[endIndex] * rampValue;
-
-                endIndex = endIndex - 1;
+                bufferArray[endIndex] = bufferArray[endIndex--] * rampValue;
             }
         }
 
@@ -44,7 +39,7 @@
         }
 
         function roundUpToPowerOfTwo(number) {
-		    return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)));
+            return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)));
         }
 
         function inverseFastFourierTransform(real, imag, bufferSize, samplingRate) {
@@ -54,13 +49,13 @@
             return result;
         }
 
-        function applyRootMeanSquare(samples) {
+        function applyRootMeanSquare(samples, sigma) {
             var square = samples.map(function(x) { return x * x; }),
                 sum = square.reduce(function(prev, curr) { return prev + curr; } ),
                 avg = sum / samples.length,
                 rms = Math.sqrt(avg);
 
-            return samples.map(function(x) { return x / rms; }); // suppose to be(x / rms * sigma) but sigma is 1
+            return samples.map(function(x) { return x / rms * sigma; });
         }
     }
 

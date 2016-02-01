@@ -47,14 +47,14 @@
         }
 
         function calculateToneValueForIndex(i, amplitude, sampleRate) {
-            var frequency = 1000; // pure tone
-            return amplitude * Math.sin(2 * Math.PI * frequency * (i / sampleRate));
+            var pureToneFrequency = 1000;
+            return amplitude * Math.sin(2 * Math.PI * pureToneFrequency * (i / sampleRate));
         }
 
-        function createNoise(length, sampleRate) {
+        function createNoise(bufferSize, sampleRate) {
             var real = [0],
                 imag = [0],
-                powerOfTwoLength = qafUtil.roundUpToPowerOfTwo(length),
+                powerOfTwoLength = qafUtil.roundUpToPowerOfTwo(bufferSize),
                 duration = powerOfTwoLength / sampleRate,
                 j = 0;
 
@@ -68,8 +68,8 @@
                 real[j] = amplitude.re;
                 imag[j] = -amplitude.im;
             }
-            var inverse = qafUtil.inverseFastFourierTransform(real, imag, length, sampleRate);
-            return qafUtil.applyRootMeanSquare(inverse);
+            var inverse = qafUtil.inverseFastFourierTransform(real, imag, bufferSize, sampleRate);
+            return qafUtil.applyRootMeanSquare(inverse, sigma);
         }
 
         function getNoiseAmplitude(frequency) {

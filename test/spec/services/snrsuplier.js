@@ -46,6 +46,23 @@ describe('Service: snrSuplier', function () {
             expect(secodondPrep).not.toEqual(thirdPrep); 
             expect(thirdPrep).not.toEqual(firstPrep); 
         });
+
+        it('should throw an error if given a nreps lower than 1', function() {
+            var invalidNreps = 0;
+            function shouldThrowError() {
+                snrSuplier.prepSnr(invalidNreps);
+            }
+            expect(shouldThrowError).toThrow();
+        });
+
+        it('should throw an error if snrList is empty', function() {
+            var nreps = 1;
+            snrSuplier.resetAll();
+            function shouldThrowError() {
+                snrSuplier.prepSnr(nreps);
+            }
+            expect(shouldThrowError).toThrow();
+        });
     });
 
     describe('when getPreparedSnr is called, it', function() {

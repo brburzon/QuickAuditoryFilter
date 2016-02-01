@@ -72,4 +72,17 @@ describe('Service: snrCollection', function () {
             expect(list).not.toEqual(immutable);
         });
     });
+
+    describe('when resetAll is called, it', function() {
+        it('should clear all arrays', function() {
+            snrCollection.addSnr(1);
+            var snrList = snrCollection.getSnrList();
+            expect(snrList).toEqual([1]);
+
+            snrCollection.resetAll();
+
+            snrList = snrCollection.getSnrList();
+            expect(snrList).toEqual([]);
+        });
+    });
 });
