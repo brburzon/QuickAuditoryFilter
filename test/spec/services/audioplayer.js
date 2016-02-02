@@ -74,7 +74,7 @@ describe('Service: audioPlayer', function () {
         it('should set source buffer', function() {
             audioPlayer.play(audioData, pauseDuration);
             $timeout.flush(pauseDuration);
-            expect(bufferSource.buffer).toBe(audioData.buffer);
+            expect(bufferSource.buffer).toBe(audioData);
         });
 
         it('should call start', function() {

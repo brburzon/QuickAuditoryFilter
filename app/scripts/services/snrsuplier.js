@@ -39,7 +39,7 @@
         }
 
         function verifyValidNreps(nreps) {
-            if(!nreps && isNaN(nreps) && nreps <= 0 && nreps >= 100)  
+            if(!nreps || isNaN(nreps) || nreps < 1 || nreps > 99)  
                 throw 'Invalid number of snr repetition input.';
         }
 
