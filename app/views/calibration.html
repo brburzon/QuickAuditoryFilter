@@ -1,0 +1,30 @@
+<div id="calibrationDiv">
+  <div class="panel col-sm-4 col-sm-offset-4">
+    <h3>Calibration</h3>
+    <div class="container-fluid">
+      <p>Listen for the tone. Click Yes if you could hear it, or No if you could not.
+         This will repeat until a threshold is found.
+      </p>
+      <br/>
+      <div class="row">
+        <div class="col-xs-3">
+          <button type="button" class="btn btn-info" ng-click="vm.calibrate()" ng-disabled="vm.isCalibrating">Start</button>
+        </div>
+        <div class="col-xs-9" style="float: right;">
+          <button type="button" class="btn btn-default" ng-disabled="!vm.isCalibrating || vm.isPlaying"
+                  ng-click="vm.iterateCalibration('yes')">Yes</button>
+          <button type="button" class="btn btn-default" ng-disabled="!vm.isCalibrating || vm.isPlaying"
+                  ng-click="vm.iterateCalibration('no')">No</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-warning" ng-disabled="!vm.isCalibrating || vm.isPlaying"
+                  ng-click="vm.endCalibration()">Reset</button>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-xs-12">
+          <p ng-model="vm.gainValue">Gain Value: {{ vm.gainValue }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
