@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.responseTimer
+     * @name qafApp.responseTimer
      * @description
      * # responseTimer
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('responseTimer', responseTimer);
 
     /** @ngInject */

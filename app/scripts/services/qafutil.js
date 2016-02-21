@@ -4,13 +4,13 @@
 
     /**
      * @ngdoc service
-     * @name appApp.qafUtil
+     * @name qafApp.qafUtil
      * @description
      * # qafUtil
-     * Factory in the appApp.
+     * Factory in the qafApp.
      * Used by SignalProcessor service.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('qafUtil', qafUtil);
 
     /** @ngInject */

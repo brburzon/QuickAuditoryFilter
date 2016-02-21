@@ -2,7 +2,7 @@
 
 describe('Controller: ResponseBtnCtrl', function () {
 
-    beforeEach(module('appApp'));
+    beforeEach(module('qafApp'));
 
     var ResponseBtnCtrl,
         scope,

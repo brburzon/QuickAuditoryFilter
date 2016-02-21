@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc function
-     * @name appApp.controller:ExerciseCtrl
+     * @name qafApp.controller:ExerciseCtrl
      * @description
      * # ExerciseCtrl
-     * Controller of the appApp
+     * Controller of the qafApp
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .controller('ExerciseCtrl', ExerciseCtrl);
 
     /** @ngInject */

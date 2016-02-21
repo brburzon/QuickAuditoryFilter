@@ -3,7 +3,7 @@
 describe('Service: responseTimer', function () {
 
     // load the service's module
-    beforeEach(module('appApp'));
+    beforeEach(module('qafApp'));
 
     // instantiate service
     var responseTimer,
@@ -20,7 +20,7 @@ describe('Service: responseTimer', function () {
     describe('when restart is called, it', function() {
         it('should start timer', function() {
             responseTimer.restart();
-            $interval.flush(1);            
+            $interval.flush(1);
             var time = responseTimer.getTime();
             expect(time).not.toEqual('0ms');
         });
@@ -39,7 +39,7 @@ describe('Service: responseTimer', function () {
             expect(restartedTime).toEqual('0ms');
         });
 
-        
+
         it('should increment timer every one milliseconds', function() {
             responseTimer.restart();
             var time = responseTimer.getTime();
@@ -53,7 +53,7 @@ describe('Service: responseTimer', function () {
             time = responseTimer.getTime();
             expect(time).toEqual('2ms');
         });
-    });    
+    });
 
     describe('when getTime is called, it', function() {
         it('should start as 0ms', function() {
@@ -67,7 +67,7 @@ describe('Service: responseTimer', function () {
             var time = responseTimer.getTime();
             expect(time).toEqual('10ms');
         });
-    }); 
+    });
 
     describe('when pause is called, it', function() {
         it('should pause timer', function() {

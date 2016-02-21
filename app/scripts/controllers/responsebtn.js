@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name appApp.controller:ResponsebtnCtrl
+ * @name qafApp.controller:ResponsebtnCtrl
  * @description
  * # ResponsebtnCtrl
- * Controller of the appApp
+ * Controller of the qafApp
  */
 angular
-    .module('appApp')
+    .module('qafApp')
     .controller('ResponseBtnCtrl', ResponseBtnCtrl);
 
 /** @ngInject */

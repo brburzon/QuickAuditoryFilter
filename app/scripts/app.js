@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name appApp
+ * @name qafApp
  * @description
- * # appApp
+ * # qafApp
  *
  * Main module of the application.
  */
 angular
-    .module('appApp', [
+    .module('qafApp', [
         'ngAnimate',
         'ngCookies',
         'ngResource',

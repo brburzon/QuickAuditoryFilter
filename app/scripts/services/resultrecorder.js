@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.resultRecorder
+     * @name qafApp.resultRecorder
      * @description
      * # resultRecorder
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('resultRecorder', resultRecorder);
 
     /** @ngInject*/

@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.audioPlayer
+     * @name qafApp.audioPlayer
      * @description
      * # audioPlayer
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('audioPlayer', audioPlayer);
 
     function audioPlayer($q, $timeout, webAudioContextFactory) {

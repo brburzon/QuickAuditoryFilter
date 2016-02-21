@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name appApp.controller:SetupCtrl
+ * @name qafApp.controller:SetupCtrl
  * @description
  * # SetupCtrl
- * Controller of the appApp
+ * Controller of the qafApp
  */
-angular.module('appApp')
+angular.module('qafApp')
     .controller('SetupCtrl', SetupCtrl);
 
 function SetupCtrl($scope, $location, $window, snrSuplier) {
