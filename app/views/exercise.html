@@ -2,7 +2,6 @@
     <keyboard-listener play="vm.play" submit="vm.setResponse(response)" is-enable="vm.isResponseEnable"
                        for-url="/exercise"></keyboard-listener>
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <div class="col-xs-4 boxGrid" ng-repeat="text in [ 1, 2, 3 ] track by $index">
           <response-btn text="{{ text }}"
                         value="{{ $index }}"
@@ -13,13 +12,12 @@
                         submit="vm.setResponse(response)">
           </response-btn>
       </div>
-    </div>
   </div>
   <br/>
   <div class="row" ng-if="vm.message === ''">
     <div class="col-xs-12"> 
       <input type="button" class="col-xs-2 col-xs-offset-5 responsiveBtn btn
-                                  btn-info" value="Ready?" ng-click="vm.play()"
+                                  btn-info" value="Play" ng-click="vm.play()"
              ng-hide="isReady">
     </div>
   </div>
