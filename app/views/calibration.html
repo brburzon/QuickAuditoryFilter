@@ -1,10 +1,7 @@
 <div id="calibrationDiv">
   <div class="panel col-sm-4 col-sm-offset-4">
-    <h3>Calibration</h3>
     <div class="container-fluid">
-      <p>Listen for the tone. Click Yes if you could hear it, or No if you could not.
-         This will repeat until a threshold is found.
-      </p>
+      <ng-transclude></ng-transclude>
       <br/>
       <div class="row">
         <div class="col-xs-3">
@@ -22,7 +19,7 @@
       <br/>
       <div class="row">
         <div class="col-xs-12">
-          <p ng-model="vm.gainValue">Gain Value: {{ vm.gainValue }}</p>
+          <p>Gain Value: {{ vm.gainValue }}</p>
         </div>
       </div>
     </div>

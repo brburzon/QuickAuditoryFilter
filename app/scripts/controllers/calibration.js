@@ -11,7 +11,7 @@ angular.module('appApp')
   .controller('CalibrationCtrl', CalibrationCtrl);
 
 function CalibrationCtrl($timeout, webAudioContextFactory) {
-  var vm = this;
+  // private contants and variables
   const INITIAL_GAIN_VALUE = 0.5,
         GAIN_PRECISION = 3,
         ADJUSTER_PRECISION = 4,
@@ -20,15 +20,14 @@ function CalibrationCtrl($timeout, webAudioContextFactory) {
         TONE_TIME_LENGTH = 1000,
         DELAY_TIME_LENGTH = 1000;
 
-  // set up audio
-  vm.audioContext = webAudioContextFactory.getInstance();
-  vm.gainNode = vm.audioContext.createGain();
-  vm.gainNode.connect(vm.audioContext.destination);
+  var adjusterValue;
+  var audioContext = webAudioContextFactory.getInstance();
+  var gainNode = audioContext.createGain();
+  gainNode.connect(audioContext.destination);
 
   // public variables and functions
-  vm.oscillator = {};
+  var vm = this;
   vm.gainValue = 'Not Calibrated';
-  vm.adjusterValue = 'Not Calibrated';
   vm.isCalibrating = false;
   vm.isPlaying = false;
   vm.calibrate = calibrate;
@@ -38,21 +37,21 @@ function CalibrationCtrl($timeout, webAudioContextFactory) {
   function calibrate() {
     vm.isCalibrating = true;
     vm.gainValue = INITIAL_GAIN_VALUE;
-    vm.adjusterValue = INITIAL_GAIN_VALUE;
+    adjusterValue = INITIAL_GAIN_VALUE;
     iterateCalibration('start');
   }
 
   function iterateCalibration(response) {
     if (response !== 'start') {
-      vm.adjusterValue = roundTo(vm.adjusterValue/2, ADJUSTER_PRECISION);
-      if (vm.adjusterValue <= MINIMUM_ADJUSTER_VALUE) {
+      adjusterValue = roundTo(adjusterValue/2, ADJUSTER_PRECISION);
+      if (adjusterValue <= MINIMUM_ADJUSTER_VALUE) {
         endCalibration();
       } else {
         if (response === 'yes') {
-          vm.gainValue = roundTo(vm.gainValue-vm.adjusterValue, GAIN_PRECISION);
+          vm.gainValue = roundTo(vm.gainValue-adjusterValue, GAIN_PRECISION);
         }
         if (response === 'no') {
-          vm.gainValue = roundTo(vm.gainValue+vm.adjusterValue, GAIN_PRECISION);
+          vm.gainValue = roundTo(vm.gainValue+adjusterValue, GAIN_PRECISION);
         }
       }
     }
@@ -68,23 +67,23 @@ function CalibrationCtrl($timeout, webAudioContextFactory) {
   }
 
   // private functions
+  function playOscillator(hertz, gain, ms) {
+    var oscillator = createTone(hertz);
+    gainNode.gain.value = gain;
+    vm.isPlaying = true;
+    oscillator.start();
+    $timeout(function() {
+      oscillator.stop();
+      vm.isPlaying = false;
+    }, ms);
+  }
+
   function createTone(hertz) {
-    var tone = vm.audioContext.createOscillator();
-    tone.connect(vm.gainNode);
+    var tone = audioContext.createOscillator();
+    tone.connect(gainNode);
     tone.type = 'sine';
     tone.frequency.value = hertz;
     return tone;
-  }
-
-  function playOscillator(hertz, gain, ms) {
-    vm.oscillator = createTone(hertz);
-    vm.gainNode.gain.value = gain;
-    vm.isPlaying = true;
-    vm.oscillator.start();
-    $timeout(function() {
-      vm.oscillator.stop();
-      vm.isPlaying = false;
-    }, ms);
   }
 
   function roundTo(num, decimalPoints) {
