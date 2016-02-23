@@ -4,9 +4,9 @@
 There are three phases that the software goes through. The following phases are setup, exercise, and result. Each of the
 phases lead to the next, but not the opposite direction. 
 
-** Tasks [0/1]
-- [ ] Copy qAF into this new structure
-- [ ] Keep test coverage above 80%
+** Tasks [2/2]
+- [X] Copy qAF into this new structure
+- [X] Keep test coverage above 80%
 
 ** Future Tasks [0/2]
 *** TODO Create Home Page
@@ -15,7 +15,8 @@ This is where users can get to know more about the project.
 *** TODO add about page
 This is where users can see the group of peopl who are involved with the project.
 
-** Problem [/]
+** Problem [0/1]
+- [ ] fix error caused by mathjs when running tests
 
 ** Links
 - [[http://stackoverflow.com/questions/23267837/testing-immediately-resolved-defer-with-jasmine#23267838][StackOverflow thread that shows how to test promises in angular js.]]
@@ -49,7 +50,6 @@ Bind all services to the view.
 + save(): void
 + reset(): void
 
-
 *** DONE listSnr                                                :directive:
 CLOSED: [2016-01-22 Fri 09:19]
 + add(): void
@@ -72,19 +72,20 @@ CLOSED: [2016-01-20 Wed 16:29]
 + getSnrList(): array
 
 * Exercise Phase
-** Requirements [0/9] 
-+ [ ] use the mouse 
-+ [ ] use the keyboard
-+ [ ] play sounds (1 signal, 2 no signal)
-+ [ ] choose a respose
-+ [ ] record user response
-+ [ ] go to next round and iterate until the exercise is done
-+ [ ] start timer
-+ [ ] stop timer
-+ [ ] proceed to the result page
+** Requirements [9/9] 
++ [X] use the mouse 
++ [X] use the keyboard
++ [X] play sounds (1 signal, 2 no signal)
++ [X] choose a respose
++ [X] record user response
++ [X] go to next round and iterate until the exercise is done
++ [X] start timer
++ [X] stop timer
++ [X] proceed to the result page
 
-** Coding Plan [7/13]
-*** TODO ExerciseCtrl                                          :controller:
+** Coding Plan [12/13]
+*** DONE ExerciseCtrl                                          :controller:
+CLOSED: [2016-02-01 Mon 14:36]
 *depends on $location, audioHandler, and userResponseRecords*
 binds model to view
 + play(): void
@@ -108,10 +109,11 @@ Allows user to use the mouse to set his or her response.
 - blink(): void 
 - blinkListener(currentActiveBtn): void
 
-*** TODO audioHandler                                             :service:
+*** DONE audioHandler                                             :service:
+CLOSED: [2016-02-03 Wed 14:33]
 *depends on audioPlayer, bufferGenerator snrSuplier, and ansersHandler*
 handles the logic of which files will be played
-+ activate(): void
+# + activate(): void
 + playSounds(): void
 + isOver(): boolean
 + prepAnswers(): void
@@ -122,14 +124,16 @@ CLOSED: [2016-01-22 Fri 11:06]
 abstracts away how the audio is being played
 + play(audioBufferr, pauseDuration): promise
 
-*** TODO bufferGenerator
+*** DONE bufferGenerator
+CLOSED: [2016-02-01 Mon 14:36]
 *depends on webAudioContextFactory qafAlgorithm*
 - getBufferDuration(): number
 - getNumberOfSignalBuffers(): number
 - generateSignalBuffer(): buffer
 - generateNoSignalBuffer(): buffer
 
-*** TODO SignalProcessor 
+*** DONE SignalProcessor 
+CLOSED: [2016-02-01 Mon 14:38]
 *depends on webAudioContextFactory, fftFactory*
 - populateSignalBuffer(array, snr): void
 - populateNoSignalBuffer(array, snr):void
@@ -145,13 +149,15 @@ abstracts away how the audio is being played
 - divide each elements by rms * sigma
   - inverse.map(x => x / rms * sigma)
     
-*** TODO SignalProcessorUtil
+*** DONE qafUtil
+CLOSED: [2016-02-01 Mon 14:37]
 - getRamp(value, rampDuration): number
 - applyRootMeanSquare(array): void
 - roundUpToNextPowerOfTwo(size): number
+- applyInvereseFastFourierTransform(array): void
 
-*** TODO qafCore 
-
+*** TODO qafCore
+In progress.
 
 *** DONE fastFourierTransformFactory
 CLOSED: [2016-01-25 Mon 14:51]
@@ -186,13 +192,80 @@ Used to keep track of how long it took the user to respond
 + pause(): void
 
 * Result Phase
-** Problem [0/2]
-- [ ] AngularPrint not displaying table
-- [ ] reset button is not resetting the audio files correctly
+** Problem [2/2]
+- [X] AngularPrint not displaying table
+- [X] reset button is not resetting the audio files correctly
   - temporary sulotion is to reroute the user to the setup page and reload the page.
 
-** Requirements [0/4]
-- [ ] see the result of the experiment in a graph
-- [ ] print the result
-- [ ] export the graph into an easy to read file format
-- [ ] reset all and go back to setup page
+** Requirements [4/4]
+- [X] see the result of the experiment in a graph
+- [X] print the result
+- [X] export the graph into an easy to read file format
+- [X] reset all and go back to setup page
+* Make qAF Adaptive
+Add the ability to determine what the masker level for the next round. This requires using the kalman filter 
+algorithm. Given the user's current response (correct or incorrect) we will generate a matrix of all the possible
+values for the next maskerLvl with their uncertainties. The maskerLvl that corresponds the lowest uncertainty will be
+the one we present to to the next round.
+
+** Requirements [/] 
+- [ ] change setup view 
+- [ ] change signal level to be fixed throughout the experiment
+- [ ] change signal frequency to be fixed throughout the experiment
+- [ ] predict the next masker level for the next round
+- [ ] predict the next lower and upper notch for the next round
+
+** Formulas
+gl = (fs - fl) / fs
+
+BW = 2.25 * fs
+
+amp = 0.05 * 10 ^ (("Level" - 80) / 20)
+
+s = amp * sqrt(2) * sin(2pift)
+
+m = amp * sqrt(BW) * N
+
+*where*
+
+m = masker level
+s = signal level (user defined and fixed throughout the experiment)
+BW = bandwidth
+gl = distance from lower notch to signal frequency
+gu = distance from signal frequency to upper notch
+amp = amplitude
+N = number of trials
+
+ --m--                --m--
+|     |       ^      |     |
+|     |       |      |     |
+|     |       s      |     |
+|     |       |      |     |
+|     |       |      |     |
+--BW-----gl------gu-----BW--
+
+** Setup Phase
+I need to update the setup page to prompt user for a signal level and signal frequency that will be used throughout 
+the experiment. Since the signal level is fixed, we no longer need a list of SNR from the user. Therefore, the SNR
+list needs to be removed.
+
+*** Question [0/0]
+**** TODO InputBox on setup page
+- I'm not sure what the step and max values should be for the signal level and frequency setup page.
+- Ask Dr. Shen what the default values for the signal level, and signal frequency.
+
+*** Coding Plan [1/1]
+**** DONE userConfig                                             :service:
+CLOSED: [2016-02-18 Thu 16:02]
+Responsible for storing user configuration for the experiment such as the signal level, and frequency. Also 
+responsible for sharing configuration between different services and controller.
+
+- getSignalLevel(): number
+- setSignalLevel(): number
+- getSignalFrequency(): number
+- setSignalFrequency(): number
+- validateConfig(): boolean
+
+**** TODO SetupCtrl
+
+

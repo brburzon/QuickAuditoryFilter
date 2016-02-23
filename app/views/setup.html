@@ -3,38 +3,21 @@
         <div class='panel col-sm-8 col-sm-offset-2'>
             <h2>Stimuli Configuration</h2>
             <div class='container-fluid'>
-                
+
                 <div class='row'>
-                    <strong class='col-xs-12'>Signal Interval</strong> 
+                    <signal-config label="Signal Level"  value="vm.level"></signal-config>
                 </div>
 
-                <!-- <div class='row'> -->
-                <!-- <div class='col-xs-6'> -->
-                <!-- <list-files files='vm.signalFiles' remove="vm.removeSignalByIndex(i)"> -->
-                <!-- <file-reader upload='vm.addSignalFile(file)'></file-reader> -->
-                <!-- </list-files> -->
-                <!-- </div> -->
-
-                <!-- <div class='col-xs-6'> -->
-                <!-- <list-files files='vm.noSignalFiles' remove="vm.removeNoSignalByIndex(i)"> -->
-                <!-- <file-reader upload='vm.addNoSignalFile(file)'></file-reader> -->
-                <!-- </list-files> -->
-                <!-- </div> -->
-
-                <list-snr snr-list="vm.snrList" add="vm.addSnr(value)" remove="vm.removeSnrByIndex(index)"></list-snr>
-
                 <div class="row">
-                    <label class="col-xs-8">Number of repetition per signal interval</label>
-                    <div id="nreps"  class="col-xs-4">
-                        <input class='col-xs-12 pull-right' type='number' value='1' step='1' size="3" min='0' max = '100' ng-model='vm.nreps' required>
-                    </div>
+                    <signal-config label="Signal Frequency" value="vm.frequency">
+                    </signal-config>
                 </div>
             </div>
             <br/>
             <div class='row'>
                 <div class="col-xs-12">
                     <div class='col-xs-6'>
-                        <input class='col-xs-12 pull-right btn btn-primary' type='button' value='Save' ng-click='vm.save()'> 
+                        <input class='col-xs-12 pull-right btn btn-primary' type='button' value='Save' ng-click='vm.save()'>
                     </div>
                     <div class='col-xs-6'>
                         <input class='col-xs-12 pull-left btn btn-primary' type='button' value='Reset' ng-click='vm.reset()'>
@@ -44,6 +27,4 @@
         </div>
         <br/>
     </div>
-</div>  
 </div>
-

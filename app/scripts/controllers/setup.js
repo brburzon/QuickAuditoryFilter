@@ -10,34 +10,37 @@
 angular.module('qafApp')
     .controller('SetupCtrl', SetupCtrl);
 
-function SetupCtrl($scope, $location, $window, snrSuplier) {
+/** @ngInject */
+function SetupCtrl($scope, $location, $window, userConfig) {
     var vm = this;
 
-    vm.snrList = snrSuplier.getSnrList();
-    vm.addSnr = snrSuplier.addSnr;
-    vm.removeSnrByIndex = snrSuplier.removeSnrByIndex;
-    vm.reset = reset;
-    vm.save = save;
-    vm.nreps = 4;
+    vm.level     = 1;
+    vm.frequency = 1000;
+    vm.reset     = reset;
+    vm.save      = save;
+    vm.nreps     = 4;
 
-    $scope.$watchCollection(function() {
-        return snrSuplier.getSnrList();
-    }, function(values) {
-        if(values !== [])
-            vm.snrList = values;
-    });
 
-    function reset() {
-        vm.nreps = 4;
-        snrSuplier.resetAll();
-    }
-
+    /**
+     * Saves the configuration and changes the view.
+     * @throws invalidUserSetupError - if level or frequency was invalid
+     */
     function save() {
         try {
-            snrSuplier.prepSnr(vm.nreps);
+            userConfig.saveConfig(vm.level, vm.frequency);
             $location.path('/exercise');
+            console.log(userConfig.getSignalLevel());
+            console.log(userConfig.getSignalFrequency());
         } catch(invalidUserSetupError) {
             $window.alert(invalidUserSetupError);
         }
+    }
+
+    /**
+     * Resets all the signal and frequency values back to their default values.
+     */
+    function reset() {
+        vm.level = 1;
+        vm.frequency = 1000;
     }
 }
