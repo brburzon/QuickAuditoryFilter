@@ -4,7 +4,7 @@ describe('Service: signalProcessor', function () {
     var signalProcessor,
         qafUtil;
 
-    beforeEach(module('appApp', function($provide) {
+    beforeEach(module('qafApp', function($provide) {
         qafUtil =
             jasmine.createSpyObj('qafUtil',
                                  [

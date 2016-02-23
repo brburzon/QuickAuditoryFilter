@@ -3,7 +3,7 @@
 describe('Controller: ListSnrCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('appApp'));
+  beforeEach(module('qafApp'));
 
   var ListSnrCtrl,
     scope;

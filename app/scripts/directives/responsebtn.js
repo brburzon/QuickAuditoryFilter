@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc directive
-     * @name appApp.directive:responseBtn
+     * @name qafApp.directive:responseBtn
      * @description
      * # responseBtn
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .directive('responseBtn', responseBtn);
 
     /** @ngInject */

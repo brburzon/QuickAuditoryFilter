@@ -9,7 +9,7 @@ describe('Service: bufferGenerator', function () {
         sampleRate = 500;
 
 
-    beforeEach(module('appApp', function injectMocks($provide) {
+    beforeEach(module('qafApp', function injectMocks($provide) {
         audioContext =
             jasmine.createSpyObj('AudioContext', ['createBuffer']);
         audioContext.sampleRate = sampleRate;

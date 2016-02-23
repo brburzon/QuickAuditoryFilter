@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.snrCollection
+     * @name qafApp.snrCollection
      * @description
      * # snrCollection
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('snrCollection', snrCollection);
 
     /** @ngInject */

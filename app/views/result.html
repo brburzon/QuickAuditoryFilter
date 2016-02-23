@@ -1,6 +1,6 @@
 <div class="container-fluid" id="resultView">
     <div class="row">
-        <div class="panel col-sm-8 col-sm-offset-2">
+        <div class="panel col-sm-12">
             <h2>Result</h2>
             <table id="resultTable" class="col-sm-12 export-table" print-table="vm.getRecords()">
                 <thead>
@@ -10,7 +10,7 @@
                     <th>Actual</th>
                     <th>Correct</th>
                     <th>Timer</th>
-                </thead> 
+                </thead>
                 <tbody>
                     <tr ng-repeat="record in vm.getRecords() track by $index">
                         <td>{{ $index + 1 }}</td>
@@ -20,7 +20,7 @@
                         <td>{{ record.correctness }}</td>
                         <td>{{ record.timer }}</td>
                     </tr>
-                </tbody> 
+                </tbody>
             </table>
             <div class="row">
                 <div class="col-xs-12 col-sm-4">

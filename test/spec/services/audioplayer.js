@@ -36,7 +36,7 @@ describe('Service: audioPlayer', function () {
     };
 
     beforeEach(function() {
-        module('appApp', function($provide) {
+        module('qafApp', function($provide) {
             $provide.value('webAudioContextFactory', webAudioContextFactory);
         });
         inject(function(_audioPlayer_, _$timeout_) {

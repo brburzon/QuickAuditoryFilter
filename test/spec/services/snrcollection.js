@@ -3,7 +3,7 @@
 describe('Service: snrCollection', function () {
 
   // load the service's module
-  beforeEach(module('appApp'));
+  beforeEach(module('qafApp'));
 
   // instantiate service
   var snrCollection;

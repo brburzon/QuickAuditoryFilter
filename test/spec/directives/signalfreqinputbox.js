@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: responseBtn', function () {
+describe('Directive: signalFreqInputBox', function () {
 
   // load the directive's module
   beforeEach(module('qafApp'));
@@ -13,7 +13,7 @@ describe('Directive: responseBtn', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<response-btn></response-btn>');
+    element = angular.element('<signal-freq-input-box></signal-freq-input-box>');
     element = $compile(element)(scope);
     expect(element.text()).toBe('');
   }));
