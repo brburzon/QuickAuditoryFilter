@@ -12,13 +12,13 @@ angular.module('appApp')
 
 function CalibrationCtrl($timeout, webAudioContextFactory) {
   // private contants and variables
-  const INITIAL_GAIN_VALUE = 0.5,
-        GAIN_PRECISION = 3,
-        ADJUSTER_PRECISION = 4,
-        MINIMUM_ADJUSTER_VALUE = 0.0001,
-        TONE_HERTZ = 1000,
-        TONE_TIME_LENGTH = 1000,
-        DELAY_TIME_LENGTH = 1000;
+  var INITIAL_GAIN_VALUE = 0.5,
+      GAIN_PRECISION = 3,
+      ADJUSTER_PRECISION = 4,
+      MINIMUM_ADJUSTER_VALUE = 0.0001,
+      TONE_HERTZ = 1000,
+      TONE_TIME_LENGTH = 1000,
+      DELAY_TIME_LENGTH = 1000;
 
   var adjusterValue = 0.5;
   var audioContext = webAudioContextFactory.getInstance();
