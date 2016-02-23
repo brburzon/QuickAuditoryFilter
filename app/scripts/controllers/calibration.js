@@ -20,7 +20,7 @@ function CalibrationCtrl($timeout, webAudioContextFactory) {
         TONE_TIME_LENGTH = 1000,
         DELAY_TIME_LENGTH = 1000;
 
-  var adjusterValue;
+  var adjusterValue = 0.5;
   var audioContext = webAudioContextFactory.getInstance();
   var gainNode = audioContext.createGain();
   gainNode.connect(audioContext.destination);
