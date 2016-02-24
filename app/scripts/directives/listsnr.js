@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name appApp.directive:listSnr
+ * @name qafApp.directive:listSnr
  * @description
  * # listSnr
  */
-angular.module('appApp')
+angular.module('qafApp')
     .directive('listSnr', listSnr);
 
 function listSnr() {

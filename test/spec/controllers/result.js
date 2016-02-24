@@ -3,7 +3,7 @@
 describe('Controller: ResultCtrl', function () {
 
     // load the controller's module
-    beforeEach(module('appApp'));
+    beforeEach(module('qafApp'));
 
     var ResultCtrl,
         scope,

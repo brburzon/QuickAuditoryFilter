@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc directive
-     * @name appApp.directive:exportTable
+     * @name qafApp.directive:exportTable
      * @description
      * # exportTable
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .directive('exportTable', exportTable);
 
     function exportTable() {

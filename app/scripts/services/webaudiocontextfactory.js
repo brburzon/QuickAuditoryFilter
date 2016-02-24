@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name appApp.webAudioContextFactory
+ * @name qafApp.webAudioContextFactory
  * @description
  * # webAudioContextFactory
- * Factory in the appApp.
+ * Factory in the qafApp.
  */
-angular.module('appApp')
+angular.module('qafApp')
   .factory('webAudioContextFactory', webAudioContextFactory);
 
 function webAudioContextFactory($window) {

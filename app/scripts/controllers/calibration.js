@@ -7,7 +7,7 @@
  * # CalibrationCtrl
  * Controller of the appApp
  */
-angular.module('appApp')
+angular.module('qafApp')
   .controller('CalibrationCtrl', CalibrationCtrl);
 
 function CalibrationCtrl($timeout, webAudioContextFactory) {

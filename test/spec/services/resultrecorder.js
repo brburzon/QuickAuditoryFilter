@@ -36,7 +36,7 @@ describe('Service: resultRecorder', function () {
     };
 
     beforeEach(function() {
-        module('appApp', function($provide) {
+        module('qafApp', function($provide) {
             $provide.value('snrSuplier', snrSuplier);
             $provide.value('answersHandler', answersHandler);
             $provide.value('responseTimer', responseTimer);

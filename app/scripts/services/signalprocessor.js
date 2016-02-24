@@ -4,12 +4,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.signalProcessor
+     * @name qafApp.signalProcessor
      * @description
      * # signalProcessor
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('signalProcessor', signalProcessor);
 
     /** @ngInject */
