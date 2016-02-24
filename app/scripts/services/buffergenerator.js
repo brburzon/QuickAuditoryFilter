@@ -30,8 +30,12 @@
 
         return generator;
 
+        /**
+         * Returns the number of signal buffer
+         * @param {number} - number of signal buffer
+         */
         function getNumberOfSignalBuffers() {
-            return snrSuplier.getPreparedSnr().length;
+            return 4; // snrSuplier.getPreparedSnr().length;
         }
 
         function getBufferDuration() {

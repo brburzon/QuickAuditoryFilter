@@ -29,8 +29,6 @@ function SetupCtrl($scope, $location, $window, userConfig) {
         try {
             userConfig.saveConfig(vm.level, vm.frequency);
             $location.path('/exercise');
-            console.log(userConfig.getSignalLevel());
-            console.log(userConfig.getSignalFrequency());
         } catch(invalidUserSetupError) {
             $window.alert(invalidUserSetupError);
         }

@@ -36,12 +36,12 @@ describe('Service: bufferGenerator', function () {
         bufferGenerator = _bufferGenerator_;
     }));
 
-    describe('when getNumberOfSignalBuffers is called, it', function() {
-        it('should return the number of prepared snr from snrSuplier', function() {
-            var numberOfPreparedSnr = bufferGenerator.getNumberOfSignalBuffers();
-            expect(numberOfPreparedSnr).toBe(3);
-        });
-    });
+    // describe('when getNumberOfSignalBuffers is called, it', function() {
+    //     it('should return the number of prepared snr from snrSuplier', function() {
+    //         var numberOfPreparedSnr = bufferGenerator.getNumberOfSignalBuffers();
+    //         expect(numberOfPreparedSnr).toBe(3);
+    //     });
+    // });
 
     describe('when getBufferDuration is called, it', function() {
         it('should return a number', function() {

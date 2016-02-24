@@ -32,18 +32,26 @@
         vm.play = play;
         vm.setResponse = setResponse;
 
-        audioHandler.prepAnswers();
-        ensureSafeReload();
+        activate();
 
-        function ensureSafeReload() {
+
+        /**
+         * Initializes the answers and makes sure the audio data is prepared.
+         * If the user reloads the page, redirect to setup page.
+         */
+        function activate() {
             try {
                 vm.soundDuration = audioHandler.getSoundDuration();
+                audioHandler.prepAnswers();
             } catch(e) {
                 $location.path('/');
                 location.reload();
             }
         };
 
+        /**
+         * Plays the set of sounds for the current round.
+         */
         function play() {
             disableUserResponse();
             setInstructions('After the tone, click the box or use the keyboard to choose your answer.');
@@ -52,14 +60,26 @@
                 .then(enableUserResponse);
         }
 
+        /**
+         * When called, user will not be able to submit a response.
+         */
         function disableUserResponse() {
             vm.isResponseEnable = false;
         }
 
+        /**
+         * Takes a string sets the new instruction for the user.
+         * @param {string} msg - instruction
+         */
         function setInstructions(msg) {
             vm.message = msg;
         }
 
+        /**
+         * Cycles through each buttons and change their state for the directive to know when to change the button
+         * colors.
+         * @param {string}
+         */
         function setBtnStateForEach(newState) {
             var i = 0;
             return $interval(function() {
