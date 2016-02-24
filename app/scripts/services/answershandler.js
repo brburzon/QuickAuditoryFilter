@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.answersHandler
+     * @name qafApp.answersHandler
      * @description
      * # answersHandler
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('answersHandler', answersHandler);
 
     function answersHandler() {

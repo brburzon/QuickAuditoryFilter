@@ -5,7 +5,7 @@ describe('Service: qafUtil', function () {
         fftFactory,
         fftInstance;
 
-    beforeEach(module('appApp', function($provide) {
+    beforeEach(module('qafApp', function($provide) {
         fftFactory = jasmine.createSpyObj('fftFactory', ['getInstance']);
         fftInstance = jasmine.createSpyObj('fft', ['inverse']);
         $provide.value('fftFactory', fftFactory);

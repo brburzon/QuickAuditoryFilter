@@ -3,13 +3,13 @@
 
     /**
      * @ngdoc service
-     * @name appApp.audioHandler
+     * @name qafApp.audioHandler
      * @description
      * # audioHandler
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .factory('audioHandler', audioHandler);
 
     /** @ngInject */

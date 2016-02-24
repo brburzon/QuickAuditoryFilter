@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc directive
-     * @name appApp.directive:keyboardListener
+     * @name qafApp.directive:keyboardListener
      * @description
      * # keyboardListener
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .directive('keyboardListener', keyboardListener);
 
     /** @ngInject */

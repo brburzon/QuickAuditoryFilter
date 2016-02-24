@@ -3,13 +3,13 @@
 
     /**
      * @ngdoc function
-     * @name appApp.controller:ResultCtrl
+     * @name qafApp.controller:ResultCtrl
      * @description
      * # ResultCtrl
-     * Controller of the appApp
+     * Controller of the qafApp
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .controller('ResultCtrl', ResultCtrl);
 
     /** @ngInject */

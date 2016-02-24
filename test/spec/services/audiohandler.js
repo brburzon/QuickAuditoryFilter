@@ -24,7 +24,7 @@ describe('Service: audioHandler', function () {
         }
     };
 
-    beforeEach(module('appApp', function($provide) {
+    beforeEach(module('qafApp', function($provide) {
         spyOn(audioPlayer, 'play').and.returnValue(deferred);;
 
         bufferGenerator =

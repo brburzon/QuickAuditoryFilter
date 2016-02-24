@@ -3,7 +3,7 @@
 describe('Directive: exportTable', function () {
 
     // load the directive's module
-    beforeEach(module('appApp'));
+    beforeEach(module('qafApp'));
 
     var element,
         scope,

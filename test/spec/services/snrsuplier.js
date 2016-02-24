@@ -3,7 +3,7 @@
 describe('Service: snrSuplier', function () {
 
     // load the service's module
-    beforeEach(module('appApp'));
+    beforeEach(module('qafApp'));
 
     // instantiate service
     var snrSuplier,
@@ -42,9 +42,9 @@ describe('Service: snrSuplier', function () {
             var secodondPrep = snrSuplier.getPreparedSnr();
             snrSuplier.prepSnr(nreps);
             var thirdPrep = snrSuplier.getPreparedSnr();
-            expect(firstPrep).not.toEqual(secodondPrep); 
-            expect(secodondPrep).not.toEqual(thirdPrep); 
-            expect(thirdPrep).not.toEqual(firstPrep); 
+            expect(firstPrep).not.toEqual(secodondPrep);
+            expect(secodondPrep).not.toEqual(thirdPrep);
+            expect(thirdPrep).not.toEqual(firstPrep);
         });
 
         it('should throw an error if given a nreps lower than 1', function() {
@@ -76,7 +76,7 @@ describe('Service: snrSuplier', function () {
             snrSuplier.prepSnr(nreps);
             var prepSnr = snrSuplier.getPreparedSnr(),
                 originalSnr = snrCollection.getSnrList();
-            expect(prepSnr).not.toEqual(originalSnr); 
+            expect(prepSnr).not.toEqual(originalSnr);
         });
     });
 });
