@@ -29,9 +29,9 @@ describe('Service: webAudioContextFactory', function () {
       return text;
     }
   };
-  
+
   beforeEach(function() {
-    module('appApp', function($provide) {
+    module('qafApp', function($provide) {
       $provide.value('$window', windowMock);
     });
 
@@ -62,7 +62,7 @@ describe('Service: webAudioContextFactory', function () {
       delete windowMock.AudioContext;
 
       var newInstance = webAudioContextFactory.getInstance();
-      expect(newInstance).toBeDefined(); 
+      expect(newInstance).toBeDefined();
 
       windowMock.AudioContext = contextMock;
     });

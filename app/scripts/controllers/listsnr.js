@@ -4,12 +4,12 @@
 
     /**
      * @ngdoc function
-     * @name appApp.controller:ListSnrCtrl
+     * @name qafApp.controller:ListSnrCtrl
      * @description
      * # ListSnrCtrl
-     * Controller of the appApp
+     * Controller of the qafApp
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .controller('ListSnrCtrl', ListSnrCtrl);
 
     /** @ngInject */

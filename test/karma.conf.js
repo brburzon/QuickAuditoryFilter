@@ -35,7 +35,6 @@ module.exports = function(config) {
       'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
       'bower_components/angularPrint/angularPrint.js',
-      'bower_components/mathjs/dist/math.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
@@ -61,11 +60,15 @@ module.exports = function(config) {
     browsers: [
       "PhantomJS"
       // "Chrome"
+      // "Firefox",
+      // "Safari"
     ],
 
     // Which plugins to enable
     plugins: [
       "karma-chrome-launcher",
+      "karma-firefox-launcher",
+      // "karma-safari-launcher", // Mac OS only
       "karma-phantomjs-launcher",
       "karma-jasmine",
       "karma-coverage"
@@ -79,12 +82,12 @@ module.exports = function(config) {
 
     reporters: ["progress", "coverage"],
 
-    preprocessors: {  
+    preprocessors: {
         "app/scripts/*.js": "coverage",
         "app/scripts/!(lib)/**/*.js": "coverage"
     },
 
-    coverageReporter: {  
+    coverageReporter: {
       type: "html",
       dir: "coverage"
     },

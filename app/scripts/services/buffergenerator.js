@@ -3,12 +3,12 @@
 
     /**
      * @ngdoc service
-     * @name appApp.bufferGenerator
+     * @name qafApp.bufferGenerator
      * @description
      * # bufferGenerator
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
-    angular.module('appApp')
+    angular.module('qafApp')
         .factory('bufferGenerator', bufferGenerator);
 
     /** @ngInject */

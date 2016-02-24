@@ -4,13 +4,13 @@
 
     /**
      * @ngdoc service
-     * @name appApp.fftFactory
+     * @name qafApp.fftFactory
      * @description
      * # fftFactory
-     * Factory in the appApp.
+     * Factory in the qafApp.
      */
     angular
-        .module('appApp')
+        .module('qafApp')
         .factory('fftFactory', fftFactory);
 
     function fftFactory() {
