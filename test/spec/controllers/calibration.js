@@ -3,7 +3,7 @@
 describe('Controller: CalibrationCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('appApp'));
+  beforeEach(module('qafApp'));
 
   var CalibrationCtrl,
     scope;

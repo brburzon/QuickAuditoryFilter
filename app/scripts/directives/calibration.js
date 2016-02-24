@@ -6,7 +6,7 @@
  * @description
  * # calibration
  */
-angular.module('appApp')
+angular.module('qafApp')
   .directive('calibration', calibration);
 
 function calibration() {
