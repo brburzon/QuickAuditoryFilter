@@ -6,7 +6,8 @@
      * @name qafApp.bufferGenerator
      * @description
      * # bufferGenerator
-     * Factory in the qafApp.
+     * Responsible for creating noise and signal buffer that will be used to play sound.
+     * This factory used by services/audiohandler.js.
      */
     angular.module('qafApp')
         .factory('bufferGenerator', bufferGenerator);

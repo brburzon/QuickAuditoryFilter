@@ -6,13 +6,18 @@
      * @name qafApp.controller:ExerciseCtrl
      * @description
      * # ExerciseCtrl
-     * Controller of the qafApp
+     * Starts the exercise. Checks if audio data is available then proceeds with
+     * the experiment. If the audio data is not available, then the use must have
+     * skipped the setup phase so we redirect the user back to the setup page.
      */
     angular.module('qafApp')
         .controller('ExerciseCtrl', ExerciseCtrl);
 
     /** @ngInject */
     function ExerciseCtrl($interval, $location, audioHandler, resultRecorder) {
+        /**
+         * Used by the responseBtn directive to know when to flash each buttons.
+         */
         var PLAYING_STATE = 0,
             CORRECT_STATE = 1,
             WRONG_STATE = 2,
@@ -54,14 +59,15 @@
          */
         function play() {
             disableUserResponse();
-            setInstructions('After the tone, click the box or use the keyboard to choose your answer.');
+            setInstructions('After the tone, click the box or use the ' +
+                            'keyboard to choose your answer.');
             audioHandler.playSounds(vm.gapDuration);
             setBtnStateForEach(PLAYING_STATE)
                 .then(enableUserResponse);
         }
 
         /**
-         * When called, user will not be able to submit a response.
+         * Restricts the user from submitting a response.
          */
         function disableUserResponse() {
             vm.isResponseEnable = false;
@@ -76,7 +82,8 @@
         }
 
         /**
-         * Cycles through each buttons and change their state for the directive to know when to change the button
+         * Cycles through each buttons and change their state for the directive
+         * to know when to change the button
          * colors.
          * @param {string}
          */
@@ -88,11 +95,19 @@
             }, vm.soundDuration + vm.gapDuration, 3);
         }
 
+        /**
+         * Starts the timer and allows the user to submit response.
+         */
         function enableUserResponse() {
             resultRecorder.startRecordTimer();
             vm.isResponseEnable = true;
         }
 
+        /**
+         * Records the user response, checks if it is correct, then check if
+         * the experiment is over.
+         * @param {number} response - user submitted response
+         */
         function setResponse(response) {
             resultRecorder.setRecords(response);
             checkResponse(response)
@@ -101,6 +116,9 @@
                 });
         }
 
+        /**
+         * Takes a response and checks if it is correct.
+         */
         function checkResponse(response) {
             var rightAnswer = resultRecorder.getCorrectAnswer();
             if(rightAnswer === response)
@@ -109,6 +127,11 @@
                 return setSingleBtnState(rightAnswer, WRONG_STATE);
         }
 
+        /**
+         * Takes an id and a new state then sets the state of the button.
+         * @param {number} btnId - button id 
+         * @param {string} newState - new state to assign to the button
+         */
         function setSingleBtnState(btnId, newState) {
             return $interval(function() {
                 vm.btnState = newState;
@@ -116,6 +139,10 @@
             }, 0, 1);
         }
 
+        /**
+         * If the experiment is over, redirect to result page; otherwise, play
+         * the sounds for the next round.
+         */
         function checkIfOver() {
             if(audioHandler.isOver())
                 $location.path('/result');

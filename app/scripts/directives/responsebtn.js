@@ -6,6 +6,7 @@
      * @name qafApp.directive:responseBtn
      * @description
      * # responseBtn
+     * Reusable directive for user response buttons.
      */
     angular
         .module('qafApp')
