@@ -167,16 +167,7 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp',
-      doc: {
-        files: [{
-          dot: true,
-          src: [
-            // Also clean doc folder
-            'doc/*'
-          ]
-        }]
-      }
+      server: '.tmp'
     },
 
     // Add vendor prefixed styles
@@ -432,20 +423,6 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    },
-
-    // Create documentation
-    jsdoc : {
-      dist : {
-        src: [
-          '<%= yeoman.app %>/scripts/**/*.js',
-          '!<%= yeoman.app %>/scripts/lib/**',
-          'README.md'
-        ],
-        options: {
-          destination : 'doc'
-        }
-      }
     }
   });
 
@@ -494,7 +471,6 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'jsDoc',
     'htmlmin'
   ]);
 
@@ -503,10 +479,5 @@ module.exports = function (grunt) {
     'newer:jscs',
     'test',
     'build'
-  ]);
-
-  grunt.registerTask('jsDoc', [
-    'clean:doc',
-    'jsdoc'
   ]);
 };

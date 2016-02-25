@@ -8,6 +8,7 @@
      * @description
      * # signalProcessor
      * Factory in the qafApp.
+     * This is used by bufferGenerator
      */
     angular.module('qafApp')
         .factory('signalProcessor', signalProcessor);

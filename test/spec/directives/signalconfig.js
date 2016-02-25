@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: signalFreqInputBox', function () {
+describe('Directive: signalConfig', function () {
 
   // load the directive's module
   beforeEach(module('qafApp'));

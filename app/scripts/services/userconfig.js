@@ -33,11 +33,11 @@
          * @param {number} frequency - signalFrequency
          */
         function saveConfig(level, frequency) {
-            if(level && isNaN(level))
+            if(!level || isNaN(level))
                 throw new TypeError('Expected a valid number level, but got', level.toString());
-            if(frequency && isNaN(frequency)) {
+            if(!frequency || isNaN(frequency))
                 throw new TypeError('Expected a valid number for frequency, but got', frequency.toString());
-            }
+
             signalLevel = level;
             signalFrequency = frequency;
         }
