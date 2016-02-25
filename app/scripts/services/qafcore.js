@@ -14,7 +14,7 @@
         .factory('qafCore', qafCore);
 
     /** @ngInject */
-    function qafCore(mathInstanceFactory) {
+    function qafCore(mathjsInstanceFactory) {
         var core = {};
 
 

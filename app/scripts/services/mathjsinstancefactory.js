@@ -4,15 +4,15 @@
 
     /**
      * @ngdoc service
-     * @name qafApp.mathInstanceFactory
+     * @name qafApp.mathjsInstanceFactory
      * @description
-     * # mathInstanceFactory
+     * # mathjsInstanceFactory
      * Factory in the qafApp.
      */
     angular.module('qafApp')
-        .factory('mathInstanceFactory', mathInstanceFactory);
+        .factory('mathjsInstanceFactory', mathjsInstanceFactory);
 
-    function mathInstanceFactory() {
+    function mathjsInstanceFactory() {
         var factory = {};
 
         factory.getInstance = getInstance;

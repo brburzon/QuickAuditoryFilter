@@ -35,7 +35,10 @@
          * @param {number} - number of signal buffer
          */
         function getNumberOfSignalBuffers() {
-            return 4; // snrSuplier.getPreparedSnr().length;
+            // For now return 4 because we don't know when to stop.
+            // The snrSuplier.getPreparedSnr() now returns undefined since we
+            // are not using it.
+            return 4; // snrSuplier.getPreparedSnr().length; 
         }
 
         function getBufferDuration() {

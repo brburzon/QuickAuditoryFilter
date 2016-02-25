@@ -12,7 +12,7 @@
     angular.module('qafApp')
         .factory('kalmanFilter', kalmanFilter);
 
-    function kalmanFilter(mathInstanceFactory) {
+    function kalmanFilter(mathjsInstanceFactory) {
         var ALL_OF_MASKER_LVL = initMaskerLvl(),
             ALL_OF_GU = initGu(),
             ALL_OF_GL = initGl(),
@@ -20,7 +20,7 @@
             glSize = 9,
             maskerLvlSize = 21;
 
-        var math = mathInstanceFactory.getInstance();
+        var mathjs = mathjsInstanceFactory.getInstance();
 
         var kalman = {};
 
@@ -132,30 +132,30 @@
         }
 
         function calcKMatrix(prevCovariance, J, responseVariance) {
-            var JTranspose = math.transpose(J),
-                calcPrevCoTimesJTranspose = math.multiply(prevCovariance, JTranspose),
+            var JTranspose = mathjs.transpose(J),
+                calcPrevCoTimesJTranspose = mathjs.multiply(prevCovariance, JTranspose),
 
-                calcJTimesPrevCo      = math.multiply(J, prevCovariance),
-                timesJTranspose       = math.multiply(calcJTimesPrevCo, JTranspose),
-                addResponseVariance   = math.add(timesJTranspose, responseVariance),
-                inverse               = math.inv(addResponseVariance),
-                firstCalcTimesInverse = math.multiply(calcPrevCoTimesJTranspose, inverse);
+                calcJTimesPrevCo      = mathjs.multiply(J, prevCovariance),
+                timesJTranspose       = mathjs.multiply(calcJTimesPrevCo, JTranspose),
+                addResponseVariance   = mathjs.add(timesJTranspose, responseVariance),
+                inverse               = mathjs.inv(addResponseVariance),
+                firstCalcTimesInverse = mathjs.multiply(calcPrevCoTimesJTranspose, inverse);
 
             return firstCalcTimesInverse;
         }
 
         function getNextMean(prevMean, x, cond, K, response) {
             var responseDifference = (response - psychometricFunction(prevMean, x, cond)),
-                KTimesRes          = math.multiply(K, responseDifference),
-                prevMeanTimesAbove = math.multiply(prevMean, KTimesRes);
+                KTimesRes          = mathjs.multiply(K, responseDifference),
+                prevMeanTimesAbove = mathjs.multiply(prevMean, KTimesRes);
 
             return prevMeanTimesAbove;
         }
 
         function getNextCovariance(prevCovariance, K, jacobian) {
-            var calcKTimesJ      = math.multiply(K, jacobian),
-                timesPrevCo      = math.multiply(calcKTimesJ, prevCovariance),
-                prevCoMinusAbove = math.subtract(prevCovariance, timesPrevCo);
+            var calcKTimesJ      = mathjs.multiply(K, jacobian),
+                timesPrevCo      = mathjs.multiply(calcKTimesJ, prevCovariance),
+                prevCoMinusAbove = mathjs.subtract(prevCovariance, timesPrevCo);
 
             return prevCoMinusAbove;
         }
@@ -184,7 +184,7 @@
                             K                 = calcKMatrix(covariance, jacobian, responseVariance),
                             predictCovariance = getNextCovariance(covariance, K, jacobian);
 
-                        result.push(2 * (1 + Math.log(2 * Math.PI)) + 0.5 * Math.log(math.det(predictCovariance)));
+                        result.push(2 * (1 + Math.log(2 * Math.PI)) + 0.5 * Math.log(mathjs.det(predictCovariance)));
                     }
                 }
             }
@@ -201,8 +201,8 @@
                 oneMinusPrecentCorrect   = 1 - percentCorrect,
                 incorrectResponseEntropy = predictedEntropy(phi, cond, covariance, incorrectResponse);
 
-            return math.add(math.multiply(percentCorrect, correctResponseEntropy),
-                            math.multiply(oneMinusPrecentCorrect, incorrectResponseEntropy));
+            return mathjs.add(mathjs.multiply(percentCorrect, correctResponseEntropy),
+                              mathjs.multiply(oneMinusPrecentCorrect, incorrectResponseEntropy));
         }
 
         function getAllPercentCorrect(phi, cond) {
