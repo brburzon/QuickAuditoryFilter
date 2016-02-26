@@ -6,14 +6,14 @@
      * @name qafApp.controller:ResultCtrl
      * @description
      * # ResultCtrl
-     * Controller of the qafApp
+     * Responsible for user actions while in result page.
      */
     angular
         .module('qafApp')
         .controller('ResultCtrl', ResultCtrl);
 
     /** @ngInject */
-    function ResultCtrl($scope, $location, resultRecorder, snrSuplier) {
+    function ResultCtrl($scope, $location, resultRecorder) {
         var records = resultRecorder.getRecords();
 
         var vm = this;
@@ -23,6 +23,10 @@
         vm.getRecords = getRecords;
         vm.reset = reset;
 
+        /**
+         * Depending on the value of the vm.exportAction, exports the table
+         * into pdf, excel, doc, and csv format.
+         */
         function exportTable() {
             switch(vm.exportAction){
             case 'pdf':
@@ -40,12 +44,17 @@
             }
         }
 
+        /**
+         * Returns the recorder response by the user.
+         */
         function getRecords() {
             return records;
         }
 
+        /**
+         * Reloads the page and redirects to the setup page.
+         */
         function reset() {
-            snrSuplier.resetAll();
             location.reload();
             $location.path('/');
         }

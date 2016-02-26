@@ -7,6 +7,7 @@
      * @name qafApp.directive:signalConfig
      * @description
      * # signalConfig
+     * UI component that allows the user to set numeric properties.
      */
     angular.module('qafApp')
         .directive('signalConfig', signalConfig);

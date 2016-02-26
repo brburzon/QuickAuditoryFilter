@@ -31,6 +31,7 @@
          * Validates and saves a signal level, and frequency.
          * @param {number} level - signal level
          * @param {number} frequency - signalFrequency
+         * @throw {error} TypeError - if either parameters are undefined or not a number
          */
         function saveConfig(level, frequency) {
             if(!level || isNaN(level))
