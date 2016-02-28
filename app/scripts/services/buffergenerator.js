@@ -51,18 +51,17 @@
                 signalFrequency = userConfig.getSignalFrequency();
 
             for(var channel = 0; channel < channels; channel++) {
-                var bufferData = buffer.getChannelData(channel, signalLevel);
+                var bufferData = buffer.getChannelData(channel);
                 signalProcessor.populateSignalBuffer(bufferData, signalLevel, signalFrequency, sampleRate);
             }
             return buffer;
         }
 
         function generateNoSignalBuffer() {
-            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate),
-                signalLevel = userConfig.getSignalLevel();
+            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate);
 
             for(var channel = 0; channel < channels; channel++) {
-                var bufferData = buffer.getChannelData(channel, signalLevel);
+                var bufferData = buffer.getChannelData(channel);
                 signalProcessor.populateNoSignalBuffer(bufferData, sampleRate);
             }
             return buffer;
