@@ -13,10 +13,9 @@
         .factory('bufferGenerator', bufferGenerator);
 
     /** @ngInject */
-    function bufferGenerator(webAudioContextFactory, signalProcessor, snrSuplier) {
+    function bufferGenerator(webAudioContextFactory, signalProcessor, userConfig) {
         var audioContext = webAudioContextFactory.getInstance(),
             sampleRate = audioContext.sampleRate,
-            snrList = snrSuplier.getPreparedSnr(),
             durationInMilliSeconds = 250,
             durationInSeconds = durationInMilliSeconds / 1000,
             bufferSize = durationInSeconds * sampleRate,
@@ -46,24 +45,24 @@
             return durationInMilliSeconds;
         }
 
-        function generateSignalBuffer(round) {
+        function generateSignalBuffer() {
             var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate),
-                currentSnr = snrList[round];
+                signalLevel = userConfig.getSignalLevel(),
+                signalFrequency = userConfig.getSignalFrequency();
 
             for(var channel = 0; channel < channels; channel++) {
-                var bufferData = buffer.getChannelData(channel, currentSnr);
-                signalProcessor.populateSignalBuffer(bufferData, currentSnr, sampleRate);
+                var bufferData = buffer.getChannelData(channel);
+                signalProcessor.populateSignalBuffer(bufferData, signalLevel, signalFrequency, sampleRate);
             }
             return buffer;
         }
 
-        function generateNoSignalBuffer(round) {
-            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate),
-                currentSnr = snrList[round];
+        function generateNoSignalBuffer() {
+            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate);
 
             for(var channel = 0; channel < channels; channel++) {
-                var bufferData = buffer.getChannelData(channel, currentSnr);
-                signalProcessor.populateNoSignalBuffer(bufferData, currentSnr, sampleRate);
+                var bufferData = buffer.getChannelData(channel);
+                signalProcessor.populateNoSignalBuffer(bufferData, sampleRate);
             }
             return buffer;
         }
