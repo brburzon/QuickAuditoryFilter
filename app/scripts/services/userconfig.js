@@ -23,7 +23,6 @@
         config.saveConfig = saveConfig;
         config.getSignalLevel = getSignalLevel;
         config.getSignalFrequency = getSignalFrequency;
-        config.reset = reset;
 
         return config;
 
@@ -59,13 +58,6 @@
             return signalFrequency;
         }
 
-        /**
-         * Resets the signal level and frequency to their default values.
-         */
-        function reset() {
-            signalLevel = 1;
-            signalFrequency = 1000;
-        }
     }
 
 }());

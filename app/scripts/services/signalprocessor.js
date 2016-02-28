@@ -25,19 +25,19 @@
 
         return processor;
 
-        function populateSignalBuffer(bufferArray, snr, sampleRate) {
+        function populateSignalBuffer(bufferArray, snr, frequency, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [],
                 noiseWithTone;
 
             for(var i = 1; i < bufferArray.length; i++) {
-                noiseWithTone = noise[i] + calculateToneValueForIndex(i, snr, sampleRate);
+                noiseWithTone = noise[i] + calculateToneValueForIndex(i, snr, frequency, sampleRate);
                 bufferArray[i] = noiseWithTone;
             }
             qafUtil.applyRamp(bufferArray, rampSize);
         }
 
-        function populateNoSignalBuffer(bufferArray, snr, sampleRate) {
+        function populateNoSignalBuffer(bufferArray, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [];
 
@@ -47,9 +47,8 @@
             qafUtil.applyRamp(bufferArray, rampSize);
         }
 
-        function calculateToneValueForIndex(i, amplitude, sampleRate) {
-            var pureToneFrequency = 1000;
-            return amplitude * Math.sin(2 * Math.PI * pureToneFrequency * (i / sampleRate));
+        function calculateToneValueForIndex(i, amplitude, frequency, sampleRate) {
+            return amplitude * Math.sin(2 * Math.PI * frequency * (i / sampleRate));
         }
 
         function createNoise(bufferSize, sampleRate) {

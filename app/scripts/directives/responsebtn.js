@@ -28,7 +28,7 @@
             scope: isolatedScope,
             templateUrl: 'views/responseBtn.html',
             restrict: 'E',
-            controller: ResponseBtnCtrl,
+            controller: 'ResponseBtnCtrl',
             controllerAs: 'vm',
             bindToController: true
         };
