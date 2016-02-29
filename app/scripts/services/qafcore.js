@@ -14,7 +14,7 @@
         .factory('qafCore', qafCore);
 
     /** @ngInject */
-    function qafCore(mathjsInstanceFactory) {
+    function qafCore(kalmanFilter) {
         var core = {};
 
 

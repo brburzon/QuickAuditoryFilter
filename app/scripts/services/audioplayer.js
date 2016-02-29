@@ -6,11 +6,12 @@
      * @name qafApp.audioPlayer
      * @description
      * # audioPlayer
-     * Factory in the qafApp.
+     * Responsible for playing audio to the user.
      */
     angular.module('qafApp')
         .factory('audioPlayer', audioPlayer);
 
+    /** @ngInject */
     function audioPlayer($q, $timeout, webAudioContextFactory) {
         var audioContext = webAudioContextFactory.getInstance();
 
@@ -20,6 +21,13 @@
 
         return player;
 
+        /**
+         * Takes a playable audio buffer, and pauseDuration then plays the
+         * audio buffer to the user with a pause after.
+         * @param {buffer} audioData - audio buffer
+         * @param {number} pauseDuration - in milliseconds
+         * @returns {object} promise - angular js promise
+         */
         function play(audioData, pauseDuration) {
             var deferred = $q.defer(),
                 limitToOnce = 1,
