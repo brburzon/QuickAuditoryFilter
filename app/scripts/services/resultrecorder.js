@@ -6,7 +6,7 @@
      * @name qafApp.resultRecorder
      * @description
      * # resultRecorder
-     * Factory in the qafApp.
+     * Stores the record of the experiment.
      */
     angular.module('qafApp')
         .factory('resultRecorder', resultRecorder);
@@ -26,6 +26,10 @@
 
         return recorder;
 
+        /**
+         * Takes a user respons for the current round and adds it the the experiment record.
+         * @param {number} userResponse - number between 0 and 2
+         */
         function setRecords(userResponse) {
             responseTimer.pause();
             var record = {};
@@ -40,15 +44,26 @@
             round++;
         }
 
+        /**
+         * Returns a copy of the record.
+         * @return {object} - copy of the record
+         */
         function getRecords() {
             return responses.slice(0);
         }
 
+        /**
+         * Returns the answer for the current round.
+         * @return {number} - answer between 0 and 2
+         */
         function getCorrectAnswer() {
             var currentRound = round - 1;
             return answersHandler.getAnswerForIndex(currentRound);
         }
 
+        /**
+         * Restarts the response timer.
+         */
         function startRecordTimer() {
             responseTimer.restart();
         }

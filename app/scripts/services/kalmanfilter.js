@@ -7,7 +7,8 @@
      * @name qafApp.kalmanFilter
      * @description
      * # kalmanFilter
-     * Factory in the qafApp.
+     * Uses the Kalman Filter Algorithm to find the masker, upper notch, and
+     * lower notch that corresponds with minimum entropy for the next round.
      */
     angular.module('qafApp')
         .factory('kalmanFilter', kalmanFilter);
@@ -24,17 +25,13 @@
 
         var kalman = {};
 
-        kalman.psychometricFunction = psychometricFunction;
-        kalman.jacobian = jacobian;
-        kalman.calcKMatrix = calcKMatrix;
-        kalman.nextMean = getNextMean;
-        kalman.nextCovariance = getNextCovariance;
-        kalman.expectedResponseVariance = expectedResponseVariance;
-        kalman.predictedEntropy = predictedEntropy;
-        kalman.totalPredictedEntropy = totalPredictedEntropy;
+        kalman.findIndexOfMinimumTotalEntropy = findIndexOfMinimumTotalEntropy;
 
         return kalman;
 
+        /**
+         * Initialize all the possible values for upper notch.
+         */
         function initGu() {
             var possibleValues = [0, 0.0833, 0.1667, 0.25, 0.3333, 0.4167, 0.5],
                 result = [],
@@ -50,6 +47,9 @@
             return result;
         }
 
+        /**
+         * Initialize all the possible values for lower notch.
+         */
         function initGl() {
             var possibleValues = [0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525, 0.6],
                 result = [],
@@ -65,6 +65,9 @@
             return result;
         }
 
+        /**
+         * Initialize all the possible values for the masker level.
+         */
         function initMaskerLvl() {
             var possibleValues = [-10, -6.5, -3, 0.5, 4, 7.5, 11,
                                   14.5, 18, 21.5, 25, 28.5, 32, 35.5,
@@ -224,7 +227,7 @@
             return result;
         }
 
-        function findMinimumTotalEntropyIndex(phi, cond, covariance) {
+        function findIndexOfMinimumTotalEntropy(phi, cond, covariance) {
             var totalEntropy = totalPredictedEntropy(phi, cond, covariance),
                 minIndex = 0,
                 minValue = totalEntropy[0],

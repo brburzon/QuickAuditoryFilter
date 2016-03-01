@@ -261,10 +261,8 @@ Responsible for storing user configuration for the experiment such as the signal
 responsible for sharing configuration between different services and controller.
 
 - getSignalLevel(): number
-- setSignalLevel(): number
 - getSignalFrequency(): number
-- setSignalFrequency(): number
-- validateConfig(): boolean
+- saveConfig(number, number): void
 
 **** TODO SetupCtrl
 

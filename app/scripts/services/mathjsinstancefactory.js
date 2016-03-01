@@ -7,11 +7,12 @@
      * @name qafApp.mathjsInstanceFactory
      * @description
      * # mathjsInstanceFactory
-     * Factory in the qafApp.
+     * Factory for getting an instance of mathjs library.
      */
     angular.module('qafApp')
         .factory('mathjsInstanceFactory', mathjsInstanceFactory);
 
+    /** @ngInject */
     function mathjsInstanceFactory() {
         var factory = {};
 
@@ -19,6 +20,10 @@
 
         return factory;
 
+        /**
+         * Returns an instance of mathjs library.
+         * @return {object} math - mathjs
+         */
         function getInstance() {
             return math;
         }

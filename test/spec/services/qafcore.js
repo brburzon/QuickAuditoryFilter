@@ -11,8 +11,5 @@ describe('Service: qafCore', function () {
     qafCore = _qafCore_;
   }));
 
-  it('should do something', function () {
-    expect(qafCore).toBeDefined();
-  });
 
 });

@@ -7,7 +7,7 @@
      * @name qafApp.fftFactory
      * @description
      * # fftFactory
-     * Factory in the qafApp.
+     * Factory for creating an instance of Fast Fourier Transform.
      */
     angular
         .module('qafApp')
@@ -22,6 +22,12 @@
 
         return fft;
 
+        /**
+         * Creates and returns a single instance of Fast Fourier Transform object.
+         * @param {number} bufferSize - size of buffer array
+         * @param {number} sampleRate - sampleRate of the user's computer
+         * @return {object} onlyInstance - FFT is only created once
+         */
         function getInstance(bufferSize, sampleRate) {
             if(!onlyInstance) {
                 onlyInstance = new FFT(bufferSize, sampleRate);
