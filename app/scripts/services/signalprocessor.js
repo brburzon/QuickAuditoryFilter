@@ -8,7 +8,8 @@
      * @description
      * # signalProcessor
      * Factory in the qafApp.
-     * This is used by bufferGenerator
+     * This is used by services/buffergenerator.js
+     * Provides functions to populate signal and no-signal buffers.
      */
     angular.module('qafApp')
         .factory('signalProcessor', signalProcessor);
@@ -25,6 +26,13 @@
 
         return processor;
 
+        /**
+         * Populates a given buffer with a signal.
+         * @param {array} bufferArray
+         * @param {number} snr - signal level
+         * @param {number} frequency - signal frequency
+         * @param {number} sampleRate
+         */
         function populateSignalBuffer(bufferArray, snr, frequency, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [],
@@ -37,6 +45,11 @@
             qafUtil.applyRamp(bufferArray, rampSize);
         }
 
+        /**
+         * Populates a given buffer with just noise.
+         * @param {array} bufferArray
+         * @param {number} sampleRate
+         */
         function populateNoSignalBuffer(bufferArray, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [];
@@ -47,10 +60,24 @@
             qafUtil.applyRamp(bufferArray, rampSize);
         }
 
+        /**
+         * Calculates a tone for a given index.
+         * @param {number} i - index
+         * @param {number} amplitude
+         * @param {number} frequency
+         * @param {number} sampleRate
+         * @return {number} tone
+         */
         function calculateToneValueForIndex(i, amplitude, frequency, sampleRate) {
             return amplitude * Math.sin(2 * Math.PI * frequency * (i / sampleRate));
         }
 
+        /**
+         * Returns an array of samples to create noise
+         * @param {array} bufferSize
+         * @param {number} sampleRate
+         * @return {array} noise array
+         */
         function createNoise(bufferSize, sampleRate) {
             var real = [0],
                 imag = [0],
@@ -72,6 +99,11 @@
             return qafUtil.applyRootMeanSquare(inverse, sigma);
         }
 
+        /**
+         * Gets noise amplitude. Called by createNoise.
+         * @param {number} frequency
+         * @return {object} result containing real and imaginary number
+         */
         function getNoiseAmplitude(frequency) {
             if(frequency < 900 || frequency > 1500) {
                 return {re: 0, im: 0 };
