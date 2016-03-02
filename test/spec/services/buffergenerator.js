@@ -4,7 +4,7 @@ describe('Service: bufferGenerator', function () {
     var bufferGenerator,
         webAudioContextFactory,
         signalProcessor,
-        snrSuplier,
+        userConfig,
         audioContext,
         sampleRate = 500;
 
@@ -24,24 +24,17 @@ describe('Service: bufferGenerator', function () {
                                      'populateNoSignalBuffer',
                                      'populateSignalBuffer'
                                  ]);
-        snrSuplier = jasmine.createSpyObj('snrSuplier', ['getPreparedSnr']);
-        snrSuplier.getPreparedSnr.and.returnValue(['foo', 'bar', 'baz']);
+        userConfig =
+            jasmine.createSpyObj('userConfig', ['getSignalLevel', 'getSignalFrequency']);
 
         $provide.value('webAudioContextFactory', webAudioContextFactory);
         $provide.value('signalProcessor', signalProcessor);
-        $provide.value('snrSuplier', snrSuplier);
+        $provide.value('userConfig', userConfig);
     }));
 
     beforeEach(inject(function (_bufferGenerator_) {
         bufferGenerator = _bufferGenerator_;
     }));
-
-    // describe('when getNumberOfSignalBuffers is called, it', function() {
-    //     it('should return the number of prepared snr from snrSuplier', function() {
-    //         var numberOfPreparedSnr = bufferGenerator.getNumberOfSignalBuffers();
-    //         expect(numberOfPreparedSnr).toBe(3);
-    //     });
-    // });
 
     describe('when getBufferDuration is called, it', function() {
         it('should return a number', function() {
@@ -64,6 +57,16 @@ describe('Service: bufferGenerator', function () {
         it('should call audioContext.createBuffer', function() {
             bufferGenerator.generateSignalBuffer(0);
             expect(audioContext.createBuffer.calls.count()).toBe(1);
+        });
+
+        it('should call userConfig.getSignalLevel', function() {
+            bufferGenerator.generateSignalBuffer(0);
+            expect(userConfig.getSignalLevel.calls.count()).toBe(1);
+        });
+
+        it('should call userConfig.getSignalFrequency', function() {
+            bufferGenerator.generateSignalBuffer(0);
+            expect(userConfig.getSignalFrequency.calls.count()).toBe(1);
         });
 
         it('should call signalProcessor.populateSignalBuffer for each channels', function() {

@@ -41,10 +41,18 @@
             return 4; // snrSuplier.getPreparedSnr().length; 
         }
 
+        /**
+         * Returns the buffer duration in milliseconds
+         * @return {number} - durationInMilliseconds
+         */
         function getBufferDuration() {
             return durationInMilliSeconds;
         }
 
+        /**
+         * Generates a signal buffer based on userConfig values
+         * @return {array} - buffer
+         */
         function generateSignalBuffer() {
             var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate),
                 signalLevel = userConfig.getSignalLevel(),
@@ -57,6 +65,10 @@
             return buffer;
         }
 
+        /**
+         * Generates a no-signal buffer based on userConfig values
+         * @return {array} - buffer
+         */
         function generateNoSignalBuffer() {
             var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate);
 
