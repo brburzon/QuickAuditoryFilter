@@ -27,10 +27,11 @@ describe('Service: signalProcessor', function () {
     describe('when populateSignalBuffer is called, it', function() {
         var bufferArray = [],
             snr = 0,
+            frequency = 1000,
             sampleRate = 8;
 
         beforeEach(function() {
-            signalProcessor.populateSignalBuffer(bufferArray, snr, sampleRate);
+            signalProcessor.populateSignalBuffer(bufferArray, snr, frequency, sampleRate);
         });
 
         it('should call qafUtil.roundUpToPowerOfTwo', function() {
@@ -60,11 +61,10 @@ describe('Service: signalProcessor', function () {
 
     describe('when populateNoSignalBuffer is called, it', function() {
         var bufferArray = [],
-            snr = 0,
             sampleRate = 8;
 
         beforeEach(function() {
-            signalProcessor.populateNoSignalBuffer(bufferArray, snr, sampleRate);
+            signalProcessor.populateNoSignalBuffer(bufferArray, sampleRate);
         });
 
         it('should call qafUtil.roundUpToPowerOfTwo', function() {
