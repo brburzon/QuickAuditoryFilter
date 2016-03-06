@@ -29,13 +29,13 @@ describe('Service: audioHandler', function () {
 
         bufferGenerator =
             jasmine.createSpyObj('bufferGenerator', [
-                'getNumberOfSignalBuffers',
+                'getNumberOfSignals',
                 'getBufferDuration',
                 'generateSignalBuffer',
                 'generateNoSignalBuffer'
             ]);
 
-        bufferGenerator.getNumberOfSignalBuffers.and.returnValue(3);
+        bufferGenerator.getNumberOfSignals.and.returnValue(3);
 
         spyOn(answersHandler, 'storeNewRandomAnswers');
         spyOn(answersHandler, 'getAnswerForIndex').and.returnValues(0,1,2);

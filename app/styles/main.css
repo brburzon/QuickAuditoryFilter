@@ -89,13 +89,8 @@ h2 {
     margin-right: 15px;
 }
 
-.list-item {
-  width: 75%;
-  max-width: 100px;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.userConfig {
+    margin-bottom: .5em;
 }
 
 .remove {

@@ -16,7 +16,7 @@
     function signalConfig() {
         return {
             templateUrl: 'views/signalconfig.html',
-            scope: { label: '@', value: '=' },
+            scope: { label: '@', options: '=', selected: '=' },
             relplace: true,
             restrict: 'E',
             controllerAs: 'vm',
