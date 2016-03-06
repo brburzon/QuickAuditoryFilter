@@ -14,7 +14,7 @@
 
     /** @ngInject */
     function audioHandler(audioPlayer, bufferGenerator, answersHandler) {
-        var numberOfRounds = bufferGenerator.getNumberOfSignalBuffers(),
+        var numberOfRounds = bufferGenerator.getNumberOfSignals(),
             round = 0;
 
         var handler = {};

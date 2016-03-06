@@ -1,25 +1,27 @@
-<div class='container-fluid' id='setupView' >
-    <div class='row'>
-        <div class='panel col-sm-8 col-sm-offset-2'>
+<div class="container-fluid" id="setupView" >
+    <div class="row">
+        <div class="panel col-sm-8 col-sm-offset-2">
             <h2>Stimuli Configuration</h2>
-            <div class='container-fluid'>
+            <div class="container-fluid">
 
-                <div class='row'>
-                    <signal-config label="Signal Level"  value="vm.level"></signal-config>
+                <div class="row userConfig">
+                    <signal-config label="Signal Level" options="vm.levelOptions" selected="vm.levelSelected"></signal-config>
                 </div>
-
-                <div class="row">
-                    <signal-config label="Signal Frequency" value="vm.frequency"></signal-config>
+                <div class="row userConfig">
+                    <signal-config label="Signal Frequency" options="vm.frequencyOptions" selected="vm.frequencySelected"></signal-config>
+                </div>
+                <div class="row userConfig">
+                    <signal-config label="Number of Trials" options="vm.nTrialOptions" selected="vm.nTrialSelected"></signal-config>
                 </div>
             </div>
             <br/>
-            <div class='row'>
+            <div class="row">
                 <div class="col-xs-12">
-                    <div class='col-xs-6'>
-                        <input class='col-xs-12 pull-right btn btn-primary' type='button' value='Save' ng-click='vm.save()'>
+                    <div class="col-xs-6">
+                        <input class="col-xs-12 pull-right btn btn-primary" type="button" value="Start" ng-click="vm.start()">
                     </div>
-                    <div class='col-xs-6'>
-                        <input class='col-xs-12 pull-left btn btn-primary' type='button' value='Reset' ng-click='vm.reset()'>
+                    <div class="col-xs-6">
+                        <input class="col-xs-12 pull-left btn btn-primary" type="button" value="Calibrate" ng-click="vm.calibrate()">
                     </div>
                 </div>
             </div>

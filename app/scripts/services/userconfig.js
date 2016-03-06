@@ -15,31 +15,30 @@
 
     /** @ngInject */
     function userConfig() {
-        var signalLevel = 1,
-            signalFrequency = 1000;
+        var signalLevel = 20,
+            signalFrequency = 1000,
+            numberOfTrials = 50;
 
         var config = {};
 
         config.saveConfig = saveConfig;
         config.getSignalLevel = getSignalLevel;
         config.getSignalFrequency = getSignalFrequency;
+        config.getNumberOfTrials = getNumberOfTrials;
 
         return config;
 
         /**
-         * Validates and saves a signal level, and frequency.
+         * Stores the signal level, frequency, and numberOfTrials. These are
+         * set by the user while in setup page.
          * @param {number} level - signal level
          * @param {number} frequency - signalFrequency
-         * @throw {error} TypeError - if either parameters are undefined or not a number
+         * @param {number} numTrials - numberOfTrials
          */
-        function saveConfig(level, frequency) {
-            if(!level || isNaN(level))
-                throw new TypeError('Expected a valid number level, but got', level.toString());
-            if(!frequency || isNaN(frequency))
-                throw new TypeError('Expected a valid number for frequency, but got', frequency.toString());
-
+        function saveConfig(level, frequency, numTrials) {
             signalLevel = level;
             signalFrequency = frequency;
+            numberOfTrials = numTrials;
         }
 
         /**
@@ -57,6 +56,15 @@
         function getSignalFrequency() {
             return signalFrequency;
         }
+
+       /**
+        * Returns the number of trials
+        * @return {number} - number of trials
+        */ 
+        function getNumberOfTrials() {
+            return numberOfTrials;
+        }
+
 
     }
 

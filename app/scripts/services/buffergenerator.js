@@ -23,7 +23,7 @@
 
         var generator = {};
 
-        generator.getNumberOfSignalBuffers = getNumberOfSignalBuffers;
+        generator.getNumberOfSignals = getNumberOfSignals;
         generator.getBufferDuration = getBufferDuration;
         generator.generateSignalBuffer = generateSignalBuffer;
         generator.generateNoSignalBuffer = generateNoSignalBuffer;
@@ -31,14 +31,12 @@
         return generator;
 
         /**
-         * Returns the number of signal buffer
-         * @param {number} - number of signal buffer
+         * Returns the number of signal that will be presented to the
+         * user during the experiment.
+         * @param {number} - number of signal 
          */
-        function getNumberOfSignalBuffers() {
-            // For now return 4 because we don't know when to stop.
-            // The snrSuplier.getPreparedSnr() now returns undefined since we
-            // are not using it.
-            return 4; // snrSuplier.getPreparedSnr().length; 
+        function getNumberOfSignals() {
+            return userConfig.getNumberOfTrials();
         }
 
         /**
