@@ -1,3 +1,6 @@
 <label class="col-xs-8">{{ vm.label }}</label>
-<input class="col-xs-4" type="number" value="1" step="1" size="4" min="0"
-       ng-model="vm.value" ng-change="vm.changeListener()" required>
+<div class="col-xs-4">
+    <select ng-options="option.name for option in vm.options track by option.id"
+            ng-model="vm.selected"
+            class="form-control"></select>
+</div>

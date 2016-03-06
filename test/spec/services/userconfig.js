@@ -14,44 +14,35 @@ describe('Service: userConfig', function () {
     describe('when saveConfig is called, it', function() {
         it('should set the signalLevel', function() {
             var actualLevel = 1234,
-                actualFrequency = 5678;
-            userConfig.saveConfig(actualLevel, actualFrequency);
+                actualFrequency = 5678,
+                numberOfTrials = 4;
+            userConfig.saveConfig(actualLevel, actualFrequency, numberOfTrials);
             var level = userConfig.getSignalLevel();
             expect(level).toBe(actualLevel);
         });
 
         it('should set the signalLevel', function() {
             var actualLevel = 1234,
-                actualFrequency = 5678;
-            userConfig.saveConfig(actualLevel, actualFrequency);
+                actualFrequency = 5678,
+                numberOfTrials = 4;
+            userConfig.saveConfig(actualLevel, actualFrequency, numberOfTrials);
             var level = userConfig.getSignalLevel();
             expect(level).toBe(actualLevel);
         });
 
-        it('should throw an error if level is not a number', function() {
-            var actualLevel = "I am not a number",
-                actualFrequency = 5678;
-
-            function shouldThrowError() {
-                userConfig.saveConfig(actualLevel, actualFrequency);
-            }
-            expect(shouldThrowError).toThrow();
-        });
-
-        it('should throw an error if given something that is not a number', function() {
+        it('should set the numberOfTrials', function() {
             var actualLevel = 1234,
-                actualFrequency = "I am not a number";
-
-            function shouldThrowError() {
-                userConfig.saveConfig(actualLevel, actualFrequency);
-            }
-            expect(shouldThrowError).toThrow();
+                actualFrequency = 5678,
+                numberOfTrials = 4;
+            userConfig.saveConfig(actualLevel, actualFrequency, numberOfTrials);
+            var numTrials = userConfig.getNumberOfTrials();
+            expect(numTrials).toBe(numberOfTrials);
         });
     });
 
     describe('when getSignalLevel is called, it', function() {
         it('should return a default value if the level has not been set', function() {
-            expect(userConfig.getSignalLevel()).toBe(1);
+            expect(userConfig.getSignalLevel()).toBe(20);
         });
 
         it('should return the signal level', function() {
