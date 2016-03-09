@@ -36,6 +36,7 @@ module.exports = function(config) {
       'bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
       'bower_components/angularPrint/angularPrint.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/mathjs/dist/math.js',
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
@@ -58,8 +59,8 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      "PhantomJS"
-      // "Chrome"
+      // "PhantomJS"
+      "Chrome"
       // "Firefox",
       // "Safari"
     ],
@@ -76,16 +77,19 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: true,
+    singleRun: false,
 
     colors: true,
 
     reporters: ["progress", "coverage"],
 
-    preprocessors: {
-        "app/scripts/*.js": "coverage",
-        "app/scripts/!(lib)/**/*.js": "coverage"
-    },
+    // Chrome requires this feature to be turned off. Generate coverage as
+    // needed and turn this back off.
+    //
+    // preprocessors: {
+    //     "app/scripts/*.js": "coverage",
+    //     "app/scripts/!(lib)/**/*.js": "coverage"
+    // },
 
     coverageReporter: {
       type: "html",
