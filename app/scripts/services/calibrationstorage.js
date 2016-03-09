@@ -17,75 +17,35 @@
 
     /** @ngInject */
     function calibrationStorage($cookies, $window) {
-        var GAIN_KEY = "qAF calibration gain value",
-            TONE_LEVEL_KEY = "qAF calibration tone level",
+        var KEY = "tHis iS a kEy tHat nO oNe cAn gUess",
             nextYear = new Date(),
             options = {};
 
         var storage = {};
 
-        storage.saveGainValue = saveGainValue;
-        storage.getGainValue = getGainValue;
-        storage.saveToneLevel = saveToneLevel;
-        storage.getToneLevel = getToneLevel;
+        storage.saveLevelThreshold = saveLevelThreshold;
+        storage.getLevelThreshold = getLevelThreshold;
 
         return storage;
 
         nextYear.setFullYear(nextYear.getFullYear() + 1);
         options['expires'] = nextYear;
 
-        checkCookieSupport();
-
         /**
-         * Checks if the browser supports or enabled cookie.
+         * Takes a tone level threshold, and saves it inside browser cookies.
+         * @param {number} value - experimenter's threshold level
          */
-        function checkCookieSupport() {
-            var cookieEnabled=(navigator.cookieEnabled)? true : false;
-
-            //if not IE4+ nor NS6+
-            if (typeof navigator.cookieEnabled=="undefined" && !cookieEnabled){
-                document.cookie="testcookie";
-                cookieEnabled=(document.cookie.indexOf("testcookie")!=-1)? true : false;
-            }
-
-            $window.alert('Your browser does not support cookies. Try using another browser.');
+        function saveLevelThreshold(value) {
+            $cookies.put(KEY, value, options);
         }
 
         /**
-         * Takes a gain value, and saves it inside browser cookies.
-         * @param {number} value - calibration value
-         */
-        function saveGainValue(value) {
-            $cookies.put(GAIN_KEY, value, options);
-        }
-
-        /**
-         * Returns the previously saved gain value;
-         * @throws {error} - if no gain value is found
-         * @return {number} - gain value
-         */
-        function getGainValue() {
-            var gainValue = parseFloat($cookies.get(GAIN_KEY));
-            if(!gainValue || isNaN(gainValue))
-                throw "No valid value was found!";
-            return gainValue;
-        }
-
-        /**
-         * Takes a tone level, and saves it inside browser cookies.
-         * @param {number} value - calibration value
-         */
-        function saveToneLevel(value) {
-            $cookies.put(TONE_LEVEL_KEY, value, options);
-        }
-
-        /**
-         * Returns the previously saved tone level;
+         * Returns the previously saved tone level threshold
          * @throws {error} - if no tone level is found
-         * @return {number} - tone level
+         * @return {number} - experimenter's threshold level
          */
-        function getToneLevel() {
-            var toneLevel = parseFloat($cookies.get(TONE_LEVEL_KEY));
+        function getLevelThreshold() {
+            var toneLevel = parseFloat($cookies.get(KEY));
             if(!toneLevel || isNaN(toneLevel))
                 throw "No valid value was found!";
             return toneLevel;
