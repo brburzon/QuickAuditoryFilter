@@ -13,13 +13,13 @@
           <button type="button" class="btn btn-default" ng-disabled="!vm.isCalibrating || vm.isPlaying"
                   ng-click="vm.iterateCalibration('no')">No</button>&nbsp;&nbsp;
           <button type="button" class="btn btn-warning" ng-disabled="!vm.isCalibrating || vm.isPlaying"
-                  ng-click="vm.endCalibration()">Reset</button>
+                  ng-click="vm.endCalibration('failure', 'Incomplete calibration. Please re-calibrate.')">Reset</button>
         </div>
       </div>
       <br/>
       <div class="row">
         <div class="col-xs-12">
-          <p>Gain Value: {{ vm.gainValue }}</p>
+          <p>Level Threshold: {{ vm.levelThreshold }}</p>
         </div>
       </div>
     </div>
