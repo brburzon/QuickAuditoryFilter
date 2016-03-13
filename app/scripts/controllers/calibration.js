@@ -22,6 +22,9 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
   vm.iterateCalibration = iterateCalibration;
   vm.endCalibration = endCalibration;
 
+  /**
+   * Starts the calibration procedure
+   */
   function calibrate() {
     vm.isCalibrating = true;
     vm.levelThreshold = 30;
@@ -29,6 +32,9 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     iterateCalibration('start');
   }
 
+  /**
+   * Handles responses and adjusts the levelThreshold accordingly
+   */
   function iterateCalibration(response) {
     if (response === 'yes') {
       if (updateVisitMap() === 3) {
@@ -50,6 +56,9 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     }
   }
 
+  /**
+   * Called when calibration is ended, displays a message to the user
+   */
   function endCalibration(result, message) {
     vm.isCalibrating = false;
     if (result === 'success') {
@@ -61,6 +70,10 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     $window.alert(message);
   }
 
+  /**
+   * Private function, increases the count of a visited levelThreshold value
+   * @return {number} - the visit count of the levelThreshold
+   */
   function updateVisitMap() {
     var currentLevelCount = visitMap[vm.levelThreshold];
     if (isNaN(currentLevelCount)) {
@@ -71,6 +84,9 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     return visitMap[vm.levelThreshold];
   }
 
+  /**
+   * Private function, creates buffer source and plays sound
+   */
   function playTone(frequency, timeInSeconds, Ltone) {
     var source = audioContext.createBufferSource();
     source.buffer = generateBuffer(frequency, timeInSeconds, Ltone);
@@ -82,6 +98,10 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     }, timeInSeconds*1000);
   }
 
+  /**
+   * Private function, called by playTone to generate an audio buffer
+   * @return {object} - audio buffer
+   */
   function generateBuffer(frequency, timeInSeconds, Ltone) {
     var channels = 2,
         sampleRate = audioContext.sampleRate,
@@ -98,6 +118,10 @@ function CalibrationCtrl($window, $timeout, webAudioContextFactory, calibrationS
     return audioBuffer;
   }
 
+  /**
+   * Private function, calculates value at index i of a buffer
+   * @return {number} - tone value at index i
+   */
   function calculateToneAtIndex(i, sampleRate, frequency, Ltone){
     return 0.05*Math.pow(10,(Ltone-80)/20)*Math.sqrt(2)*Math.sin(2*Math.PI*frequency*(i/sampleRate));
   }
