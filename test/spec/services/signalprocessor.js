@@ -2,7 +2,9 @@
 
 describe('Service: signalProcessor', function () {
     var signalProcessor,
-        qafUtil;
+        qafUtil,
+        mathjsInstanceFactory,
+        mathjs;
 
     beforeEach(module('qafApp', function($provide) {
         qafUtil =
@@ -13,7 +15,16 @@ describe('Service: signalProcessor', function () {
                                      'inverseFastFourierTransform',
                                      'applyRootMeanSquare'
                                  ]);
+        mathjsInstanceFactory =
+            jasmine.createSpyObj('mathjsInstanceFactory', ['getInstance']);
+        mathjs =
+            jasmine.createSpyObj('mathjs', ['eval']);
+
+        mathjsInstanceFactory.getInstance.and.returnValue(mathjs);
+        mathjs.eval.and.returnValue(Math.random());
+
         $provide.value('qafUtil', qafUtil);
+        $provide.value('mathjsInstanceFactory', mathjsInstanceFactory);
     }));
 
     beforeEach(inject(function (_signalProcessor_) {

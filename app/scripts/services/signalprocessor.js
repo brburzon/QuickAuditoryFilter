@@ -15,9 +15,10 @@
         .factory('signalProcessor', signalProcessor);
 
     /** @ngInject */
-    function signalProcessor(qafUtil) {
+    function signalProcessor(qafUtil, mathjsInstanceFactory) {
         var sigma = 1,
-            rampSize = 500;
+            rampSize = 500,
+            mathjs = mathjsInstanceFactory.getInstance();
 
         var processor = {};
 
@@ -29,17 +30,17 @@
         /**
          * Populates a given buffer with a signal.
          * @param {array} bufferArray
-         * @param {number} snr - signal level
+         * @param {number} level - signal level
          * @param {number} frequency - signal frequency
          * @param {number} sampleRate
          */
-        function populateSignalBuffer(bufferArray, snr, frequency, sampleRate) {
+        function populateSignalBuffer(bufferArray, level, frequency, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [],
                 noiseWithTone;
 
             for(var i = 1; i < bufferArray.length; i++) {
-                noiseWithTone = noise[i] + calculateToneValueForIndex(i, snr, frequency, sampleRate);
+                noiseWithTone = noise[i] + calculateToneValueForIndex(i, level, frequency, sampleRate);
                 bufferArray[i] = noiseWithTone;
             }
             qafUtil.applyRamp(bufferArray, rampSize);
@@ -48,9 +49,11 @@
         /**
          * Populates a given buffer with just noise.
          * @param {array} bufferArray
+         * @param {number} level - signal level
+         * @param {number} frequency - signal frequency
          * @param {number} sampleRate
          */
-        function populateNoSignalBuffer(bufferArray, sampleRate) {
+        function populateNoSignalBuffer(bufferArray, level, frequency, sampleRate) {
             var noise = createNoise(bufferArray.length, sampleRate),
                 rampValues = [];
 
@@ -68,7 +71,8 @@
          * @param {number} sampleRate
          * @return {number} tone
          */
-        function calculateToneValueForIndex(i, amplitude, frequency, sampleRate) {
+        function calculateToneValueForIndex(i, level, frequency, sampleRate) {
+            var amplitude = 0.05 * Math.pow(10, (level - 90 + 20/*for now*/)/20);
             return amplitude * Math.sin(2 * Math.PI * frequency * (i / sampleRate));
         }
 
@@ -110,7 +114,7 @@
             } else {
                 var g1 = Math.randomGaussian(0, sigma).toString(),
                     g2 = Math.randomGaussian(0, sigma).toString(),
-                    result = math.eval('sqrt('+g1+'^2 + '+g2+'^2) * E^(i * (random() * (2 * PI)))');
+                    result = mathjs.eval('sqrt('+g1+'^2 + '+g2+'^2) * E^(i * (random() * (2 * PI)))');
                 return result;
             }
         }

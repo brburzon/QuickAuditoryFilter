@@ -13,77 +13,21 @@
     angular.module('qafApp')
         .factory('kalmanFilter', kalmanFilter);
 
-    function kalmanFilter(mathjsInstanceFactory) {
-        var ALL_OF_MASKER_LVL = initMaskerLvl(),
-            ALL_OF_GU = initGu(),
-            ALL_OF_GL = initGl(),
-            guSize = 7,
-            glSize = 9,
-            maskerLvlSize = 21;
-
+    /** @ngInject */
+    function kalmanFilter(mathjsInstanceFactory, maskerParams) {
         var mathjs = mathjsInstanceFactory.getInstance();
 
         var kalman = {};
 
+        kalman.jacobian = jacobian;
+        kalman.calcKMatrix = calcKMatrix;
+        kalman.getNextMean = getNextMean;
+        kalman.getNextCovariance = getNextCovariance;
+        kalman.expectedResponseVariance = expectedResponseVariance;
         kalman.findIndexOfMinimumTotalEntropy = findIndexOfMinimumTotalEntropy;
 
         return kalman;
 
-        /**
-         * Initialize all the possible values for upper notch.
-         */
-        function initGu() {
-            var possibleValues = [0, 0.0833, 0.1667, 0.25, 0.3333, 0.4167, 0.5],
-                result = [],
-                i = 0;
-
-            for(var guIndex = 0; guIndex < guSize; guIndex++) {
-                for(var glIndex = 0; glIndex < glSize; glIndex++) {
-                    for(var maskerIndex = 0; maskerIndex < maskerLvlSize; maskerIndex++) {
-                        result[i++] = possibleValues[guIndex];
-                    }
-                }
-            }
-            return result;
-        }
-
-        /**
-         * Initialize all the possible values for lower notch.
-         */
-        function initGl() {
-            var possibleValues = [0, 0.075, 0.15, 0.225, 0.3, 0.375, 0.45, 0.525, 0.6],
-                result = [],
-                i = 0;
-
-            for(var guIndex = 0; guIndex < guSize; guIndex++) {
-                for(var glIndex = 0; glIndex < glSize; glIndex++) {
-                    for(var maskerIndex = 0; maskerIndex < maskerLvlSize; maskerIndex++) {
-                        result[i++] = possibleValues[glIndex];
-                    }
-                }
-            }
-            return result;
-        }
-
-        /**
-         * Initialize all the possible values for the masker level.
-         */
-        function initMaskerLvl() {
-            var possibleValues = [-10, -6.5, -3, 0.5, 4, 7.5, 11,
-                                  14.5, 18, 21.5, 25, 28.5, 32, 35.5,
-                                  39, 42.5, 46, 49.5, 53, 56.5, 60],
-                result = [],
-                i = 0;
-
-            for(var guIndex = 0; guIndex < guSize; guIndex++) {
-                for(var glIndex = 0; glIndex < glSize; glIndex++) {
-                    for(var maskerIndex = 0; maskerIndex < maskerLvlSize; maskerIndex++) {
-                        result[i++] = possibleValues[maskerIndex];
-                    }
-                }
-            }
-            return result;
-        }
 
         function psychometricFunction(phi, x, cond) {
             var f     = cond[0],
@@ -107,6 +51,7 @@
                 termLowerTip  = roundedExponentialInegral(pl, maxgl) - roundedExponentialInegral(pl, gl),
                 termLowerTail = roundedExponentialInegral(t, maxgl) - roundedExponentialInegral(t, gl),
                 termUpperTip  = roundedExponentialInegral(pu, maxgu) - roundedExponentialInegral(pu, gu),
+
 
                 term1 = f * ((1 - Math.pow(10, w / 10)) * termLowerTip + Math.pow(10, w / 10) * termLowerTail + termUpperTip),
                 N0    = Ps - 10 * Math.log10(term1) - K,
@@ -134,11 +79,11 @@
             return jacobian;
         }
 
-        function calcKMatrix(prevCovariance, J, responseVariance) {
-            var JTranspose = mathjs.transpose(J),
+        function calcKMatrix(prevCovariance, jacobian, responseVariance) {
+            var JTranspose = mathjs.transpose(jacobian),
                 calcPrevCoTimesJTranspose = mathjs.multiply(prevCovariance, JTranspose),
 
-                calcJTimesPrevCo      = mathjs.multiply(J, prevCovariance),
+                calcJTimesPrevCo      = mathjs.multiply(jacobian, prevCovariance),
                 timesJTranspose       = mathjs.multiply(calcJTimesPrevCo, JTranspose),
                 addResponseVariance   = mathjs.add(timesJTranspose, responseVariance),
                 inverse               = mathjs.inv(addResponseVariance),
@@ -173,12 +118,12 @@
                 x           = [],
                 result      = [];
 
-            for(var guIndex = 0; guIndex < ALL_OF_GU.length; guIndex++) {
-                for(var glIndex = 0; glIndex < ALL_OF_GL.length; glIndex++) {
-                    for(var mskrIndex = 0; mskrIndex < ALL_OF_MASKER_LVL.length; mskrIndex++) {
-                        x[0] = ALL_OF_GU[guIndex];
-                        x[1] = ALL_OF_GL[glIndex];
-                        x[2] = ALL_OF_MASKER_LVL[mskrIndex];
+            for(var guIndex = 0; guIndex < maskerParams.getUpperNotchLength; guIndex++) {
+                for(var glIndex = 0; glIndex < maskerParams.getLowerNotchLength; glIndex++) {
+                    for(var mskrIndex = 0; mskrIndex < maskerParams.getMaskerLevelLength; mskrIndex++) {
+                        x[0] = maskerParams.lookupUpperNotch(guIndex);
+                        x[1] = maskerParams.lookupLowerNotch(glIndex);
+                        x[2] = maskerParams.lookupMaskerLevel(mskrIndex);
 
                         currentMean = getNextMean(currentMean, x, cond, K, responseCorrectness);
                         jacobian    = jacobian(currentMean, x, cond);
@@ -212,12 +157,12 @@
             var x = [],
                 result = [];
 
-            for(var guIndex = 0; guIndex < ALL_OF_GU.length; guIndex++) {
-                for(var glIndex = 0; glIndex < ALL_OF_GL.length; glIndex++) {
-                    for(var mskrIndex = 0; mskrIndex < ALL_OF_MASKER_LVL.length; mskrIndex++) {
-                        x[0] = ALL_OF_GU[guIndex];
-                        x[1] = ALL_OF_GL[glIndex];
-                        x[2] = ALL_OF_MASKER_LVL[mskrIndex];
+            for(var guIndex = 0; guIndex < maskerParams.getUpperNotchLength; guIndex++) {
+                for(var glIndex = 0; glIndex < maskerParams.getLowerNotchLength; glIndex++) {
+                    for(var mskrIndex = 0; mskrIndex < maskerParams.getMaskerLevelLength; mskrIndex++) {
+                        x[0] = maskerParams.lookupUpperNotch(guIndex);
+                        x[1] = maskerParams.lookupLowerNotch(glIndex);
+                        x[2] = maskerParams.lookupMaskerLevel(mskrIndex);
 
                         result.push(psychometricFunction(phi, x, cond));
                     }

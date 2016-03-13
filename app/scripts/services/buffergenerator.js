@@ -19,7 +19,9 @@
             durationInMilliSeconds = 250,
             durationInSeconds = durationInMilliSeconds / 1000,
             bufferSize = durationInSeconds * sampleRate,
-            channels = 2;
+            channels = 2,
+            signalLevel = userConfig.getSignalLevel(),
+            signalFrequency = userConfig.getSignalFrequency();
 
         var generator = {};
 
@@ -33,7 +35,7 @@
         /**
          * Returns the number of signal that will be presented to the
          * user during the experiment.
-         * @param {number} - number of signal 
+         * @param {number} - number of signal
          */
         function getNumberOfSignals() {
             return userConfig.getNumberOfTrials();
@@ -52,9 +54,7 @@
          * @return {array} - buffer
          */
         function generateSignalBuffer() {
-            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate),
-                signalLevel = userConfig.getSignalLevel(),
-                signalFrequency = userConfig.getSignalFrequency();
+            var buffer = audioContext.createBuffer(channels, bufferSize, sampleRate);
 
             for(var channel = 0; channel < channels; channel++) {
                 var bufferData = buffer.getChannelData(channel);
@@ -72,7 +72,7 @@
 
             for(var channel = 0; channel < channels; channel++) {
                 var bufferData = buffer.getChannelData(channel);
-                signalProcessor.populateNoSignalBuffer(bufferData, sampleRate);
+                signalProcessor.populateNoSignalBuffer(bufferData, signalLevel, signalFrequency, sampleRate);
             }
             return buffer;
         }
